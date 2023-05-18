@@ -1,0 +1,16 @@
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+  = render "users/shared/error_messages", resource: resource
+  .card.bg-light
+    article.card-body.mx-auto
+      h4.card-title.mt-3.text-center
+        | 確認用メールの再送信
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-envelope-fill
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+      br
+      .form-group.text-center
+        button.btn.btn-primary.btn-block[type="submit"]
+          | メールを送信する

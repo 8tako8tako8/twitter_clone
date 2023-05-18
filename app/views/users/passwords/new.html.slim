@@ -1,0 +1,15 @@
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  .card.bg-light
+    article.card-body.mx-auto
+      h4.card-title.mt-3.text-center
+        | パスワードをお忘れの方
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-envelope-fill
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス"
+      br
+      .form-group.text-center
+        button.btn.btn-primary.btn-block[type="submit"]
+          | パスワードをリセットする

@@ -1,0 +1,17 @@
+p
+  = @resource.email
+  |  様
+p
+  | 平素よりご利用いただきありがとうございます。
+- if @resource.try(:unconfirmed_email?)
+  p
+    | お客様のメールアドレスを 
+    = @resource.email
+    |  に変更するリクエストを受け付けました。。 
+    = @resource.unconfirmed_email
+    | .
+- else
+  p
+    | お客様のメールアドレスが 
+    = @resource.email
+    |  に変更されました。
