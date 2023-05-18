@@ -5,5 +5,15 @@ require:
 Style/Documentation:
   Enabled: false
 Metrics/MethodLength:
+  Max: 15
   Exclude:
-    - 'db/migrate/*'
+    - "db/migrate/*"
+Metrics/AbcSize:
+  Max: 40
+  Exclude:
+    - "db/migrate/*"
+Layout/LineLength:
+  Max: 200
+Metrics/BlockLength:
+  Exclude:
+    - "config/environments/*"
