@@ -45,6 +45,9 @@ gem 'devise'
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-github', '~> 2.0.1'
 
+# To Use Japanese Language
+gem 'rails-i18n'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
