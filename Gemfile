@@ -32,8 +32,18 @@ gem 'cssbundling-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+# Convert ERB to SLIM
+gem 'html2slim'
+
+# Use SLIM
+gem "slim-rails"
+
 # Use devise
 gem 'devise'
+
+# Use omniauth
+gem 'omniauth', '~> 2.1.1'
+gem 'omniauth-github', '~> 2.0.1'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
