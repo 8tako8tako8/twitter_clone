@@ -32,6 +32,19 @@ gem 'cssbundling-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+# Use SLIM
+gem 'slim-rails'
+
+# Use devise
+gem 'devise'
+
+# Use omniauth
+gem 'omniauth', '~> 2.1.1'
+gem 'omniauth-github', '~> 2.0.1'
+
+# To Use Japanese Language
+gem 'rails-i18n'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -62,7 +75,9 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'html2slim'
   gem 'htmlbeautifier'
+  gem 'letter_opener_web', '~> 2.0'
   gem 'rubocop', require: false
   gem 'rubocop-hc', require: false, github: 'ihatov08/rubocop-hc'
   gem 'rubocop-rails', require: false

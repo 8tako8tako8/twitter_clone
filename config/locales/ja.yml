@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        user_name: "ユーザー名"
+        tel: "電話番号"
+        introduction: "自己紹介"
+        location: "所在地"
+        birthdate: "生年月日"
+        website_url: "ウェブサイトURL"

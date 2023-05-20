@@ -1,0 +1,47 @@
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = render "users/shared/error_messages", resource: resource
+  .card.bg-light
+    article.card-body.mx-auto
+      h4.card-title.mt-3.text-center
+        | サインアップ
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-envelope-fill
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス"
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-person-fill
+        = f.text_field :user_name, class: "form-control", placeholder: "ユーザー名"
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-telephone-fill
+        = f.text_field :tel, class: "form-control", placeholder: "電話番号"
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-balloon-fill
+        = f.date_field :birthdate, class: "form-control", placeholder: "生年月日"
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-lock-fill
+        = f.password_field :password, class: "form-control", placeholder: "パスワード"
+      br
+      .form-group.input-group
+        .input-group-prepend
+          span.input-group-text
+            i.bi.bi-lock-fill
+        = f.password_field :password_confirmation, class: "form-control", placeholder: "パスワード（確認用）"
+      br
+      .form-group.text-center
+        button.btn.btn-primary.btn-block[type="submit"]
+          | アカウントを作成する
+
