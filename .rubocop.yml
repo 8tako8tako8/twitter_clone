@@ -17,3 +17,6 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - "config/environments/*"
+Hc/RailsSpecificActionName:
+  Exclude:
+    - "app/controllers/users/omniauth_callbacks_controller.rb"
