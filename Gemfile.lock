@@ -350,7 +350,6 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
-  dotenv-rails
   factory_bot_rails
   html2slim
   htmlbeautifier
