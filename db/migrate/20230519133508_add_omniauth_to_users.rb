@@ -5,6 +5,6 @@ class AddOmniauthToUsers < ActiveRecord::Migration[7.0]
     t.string :provider, null: false, default: ''
     t.string :uid, null: false
 
-    t.index [:provider, :uid], unique: true
+    t.index %i[provider uid], unique: true
   end
 end

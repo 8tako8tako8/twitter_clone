@@ -18,13 +18,13 @@ class User < ApplicationRecord
     end
   end
 
+  def self.create_unique_string
+    SecureRandom.uuid
+  end
+
   private
 
   def github_provider?
     provider == 'github'
-  end
-
-  def self.create_unique_string
-    SecureRandom.uuid
   end
 end
