@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :tel, presence: true, unless: :github_provider?
   validates :user_name, presence: true, unless: :github_provider?
   validates :birthdate, presence: true, unless: :github_provider?
+  validates :uid, presence: true, uniqueness: { scope: :provider }
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -21,5 +22,9 @@ class User < ApplicationRecord
 
   def github_provider?
     provider == 'github'
+  end
+
+  def self.create_unique_string
+    SecureRandom.uuid
   end
 end
