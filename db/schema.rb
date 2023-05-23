@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_155846) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_21_132833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,20 +40,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_155846) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.string "user_name", null: false
-    t.string "tel", null: false
+    t.string "user_name", default: "", null: false
+    t.string "tel", default: "", null: false
     t.string "introduction"
     t.string "location"
-    t.date "birthdate", null: false
+    t.date "birthdate"
     t.text "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider", default: "", null: false
+    t.string "uid", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["tel"], name: "index_users_on_tel", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
-    t.index ["user_name"], name: "index_users_on_user_name", unique: true
   end
 
 end
