@@ -11,7 +11,9 @@ class User < ApplicationRecord
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      raise 'メールアドレスを取得できませんでした。GitHubでメールアドレス連携を許可してください。' if auth.info.email.nil?
+
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.confirmed_at = Time.zone.now
