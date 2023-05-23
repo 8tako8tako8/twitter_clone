@@ -11,7 +11,7 @@ module Users
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: 'github') if is_navigational_format?
       end
-    rescue => e
+    rescue StandardError => e
       session['devise.github_data'] = request.env['omniauth.auth'].except(:extra)
       flash[:alert] = e.message
       redirect_to new_user_registration_url
