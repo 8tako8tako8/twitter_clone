@@ -29,6 +29,10 @@ class User < ApplicationRecord
     SecureRandom.uuid
   end
 
+  def follow(user)
+    active_relationships.create(followed_user_id: user.id)
+  end
+
   private
 
   def github_provider?
