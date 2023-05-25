@@ -1,3 +1,86 @@
+- if !user_signed_in?
+  .container.mt-4.mb-4
+    .row
+      .col-lg-3
+        ul
+          .list-group
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-hash.mr-2 style="margin-right: 10px"
+              span 話題を検索
+      .col-lg-6 style="border-left: 1px solid silver;border-right: 1px solid silver;"
+        h3 style="font-weight: bold;" Twitterを使ってみよう
+        p 今すぐ登録して、タイムラインをカスタマイズしましょう
+        = link_to 'アカウントを作成', new_user_registration_path, class: "btn btn-light rounded-pill ms-3"
 - if user_signed_in?
-  button.btn.btn-primary[type="button"]
-    | ツイートする
+  .container.mt-4.mb-4
+    .row
+      .col-lg-3
+        ul
+          .list-group
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-house-door.mr-2 style="margin-right: 10px"
+              span ホーム
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-hash.mr-2 style="margin-right: 10px"
+              span 話題を検索
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-bell.mr-2 style="margin-right: 10px"
+              span 通知
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-bookmark.mr-2 style="margin-right: 10px"
+              span ブックマーク
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-envelope.mr-2 style="margin-right: 10px"
+              span メッセージ
+            a.list-group-item.list-group-item-action.fs-4.mb-3 style="border: none"
+              i.bi.bi-person.mr-2 style="margin-right: 10px"
+              span プロフィール
+        .d-flex.justify-content-center
+          button.btn.btn-primary.rounded-pill style="padding: 10px 60px; font-size: 20px;" ツイートする
+        .card.mt-4 style="border: none;"
+          .row.g-0.d-flex.justify-content-center
+            .col-md-auto.d-flex.justify-content-center
+              - if current_user.image.attached?
+                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = image_tag 'no_image.png', size: '60x60'
+            .col-md-auto
+              .card-body
+                h3 = current_user.user_name
+      .col-lg-6 style="border-left: 1px solid silver;border-right: 1px solid silver;"
+        h3 style="font-weight: bold;margin-left: 10px;" ホーム
+        ul.nav.nav-tabs.nav-fill.nav-pills
+          li.nav-item
+            = link_to "おすすめ", root_path, class: "nav-link #{'active' if params[:view].nil?}", style: "border: none;"
+          li.nav-item
+            = link_to "フォロー中", root_path(view: 'follow'), class: "nav-link #{'active' if params[:view] == 'follow'}", style: "border: none;"
+        .card style="border-radius: 0;border: none;border-top: 1px solid silver;border-bottom: 1px solid silver;"
+          .row.g-0
+            .col-md-2.mt-3.d-flex.justify-content-center
+              - if current_user.image.attached?
+                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = image_tag 'no_image.png', size: '60x60'
+            .col-md-10
+              .card-body
+                form
+                  .form-group
+                    div
+                      textarea.form-control style="resize: none; border: none;" placeholder="いまどうしてる？"
+                    .d-flex.justify-content-between
+                      i.bi.bi-image
+                      button.btn.btn-primary.rounded-pill ツイートする
+        - @tweets.each do |tweet|
+          .card style="border-radius: 0;border: none;border-top: 1px solid silver;border-bottom: 1px solid silver;"
+            .row.g-0
+              .col-md-2.mt-3.d-flex.justify-content-center
+                - if tweet.user.image.attached?
+                  = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+              .col-md-10
+                .card-body
+                  h5.card-title = tweet.user.user_name
+                  p.card-text = tweet.tweet
+        .nav.justify-content-center.mt-3
+          = paginate @tweets
