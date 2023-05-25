@@ -1,17 +1,15 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
+nav.navbar.navbar-expand-lg.navbar-light.bg-white style="border-bottom: 1px solid silver;"
   .container.px-4.px-lg-5
-    a.navbar-brand[href="/"]
-      | Twitterクローン
+    = link_to root_path, class: "navbar-brand"
+      = image_tag "twitter.png", size: "30x30"
+      span.text-primary Twitterクローン
     button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
       span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse
+  .collapse.navbar-collapse
     ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
       li.nav-item
         - if user_signed_in?
-          span
-            | ログイン中：
-            = current_user.user_name
           = button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary"
         - else
-          = link_to 'ログイン', new_user_session_path, class: "btn btn-primary"
-          = link_to 'サインアップ', new_user_registration_path, class: "btn btn-dark"
+          = link_to 'ログイン', new_user_session_path, class: "btn btn-outline-primary ms-3"
+          = link_to '新規登録', new_user_registration_path, class: "btn btn-primary ms-3"
