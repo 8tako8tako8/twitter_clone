@@ -5,6 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: %i[github]
 
+  has_many :tweets, dependent: :destroy
+  has_many :active_relationships, class_name: 'Follow', foreign_key: 'follower_user_id', dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed_user
+  has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower_user
+  has_one_attached :image
+
   validates :tel, presence: true, unless: :github_provider?
   validates :user_name, presence: true, unless: :github_provider?
   validates :birthdate, presence: true, unless: :github_provider?
