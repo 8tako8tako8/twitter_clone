@@ -1,0 +1,33 @@
+.border-none {
+  border: none;
+}
+
+.margin-right-1 {
+  margin-right: 10px;
+}
+
+.border-sides {
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.btn-tweet {
+  padding: 10px 60px;
+  font-size: 20px;
+}
+
+.border-top-bottom {
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
+}
+
+.textarea-tweet {
+  resize: none;
+  border: none;
+}
