@@ -6,9 +6,9 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: %i[github]
 
   has_many :tweets, dependent: :destroy
-  has_many :active_relationships, class_name: 'Follow', foreign_key: 'follower_user_id', dependent: :destroy
+  has_many :active_relationships, class_name: 'Follow', foreign_key: 'follower_user_id', dependent: :destroy, inverse_of: :follower_user
   has_many :followings, through: :active_relationships, source: :followed_user
-  has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy, inverse_of: :followed_user
   has_many :followers, through: :passive_relationships, source: :follower_user
   has_one_attached :image
 
