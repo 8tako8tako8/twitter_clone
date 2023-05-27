@@ -17,6 +17,7 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - "config/environments/*"
+    - "db/seeds.rb"
 Hc/RailsSpecificActionName:
   Exclude:
     - "app/controllers/users/*"
