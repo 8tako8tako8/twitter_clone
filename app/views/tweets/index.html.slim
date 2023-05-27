@@ -32,7 +32,7 @@
             a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
               i.bi.bi-envelope.margin-right-1
               span メッセージ
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+            = link_to user_path(current_user), class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
               i.bi.bi-person.margin-right-1
               span プロフィール
         .d-flex.justify-content-center
@@ -57,10 +57,11 @@
         .card.border-top-bottom
           .row.g-0
             .col-md-2.mt-3.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
+              = link_to user_path(current_user)
+                - if current_user.image.attached?
+                  = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
             .col-md-10
               .card-body
                 form
