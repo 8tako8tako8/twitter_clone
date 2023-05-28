@@ -40,14 +40,14 @@ class User < ApplicationRecord
   def favorite(tweet)
     Favorite.where(tweet_id: tweet.id).first_or_create(
       tweet_id: tweet.id,
-      user_id: self.id
+      user_id: id
     )
   end
 
   def retweet(tweet)
     Retweet.where(tweet_id: tweet.id).first_or_create(
       tweet_id: tweet.id,
-      user_id: self.id
+      user_id: id
     )
   end
 
@@ -55,7 +55,7 @@ class User < ApplicationRecord
     Comment.create(
       comment: comment,
       tweet_id: tweet.id,
-      user_id: self.id
+      user_id: id
     )
   end
 

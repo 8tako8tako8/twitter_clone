@@ -7,9 +7,9 @@ if Rails.env.development?
       user = User.new(
         email: "user#{i}@example.com", password: 'password',
         password_confirmation: 'password', user_name: "User#{i}",
-        introduction: "2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます",
+        introduction: '2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます',
         tel: '0000000000', birthdate: '1990-01-01',
-        location: 'Tokyo', website_url: "test@example.com",
+        location: 'Tokyo', website_url: 'test@example.com',
         uid: SecureRandom.uuid, confirmed_at: Time.zone.now
       )
       image_path = Rails.root.join("db/seeds/user#{i}.png")
@@ -17,17 +17,17 @@ if Rails.env.development?
         file = File.open(image_path)
         user.image.attach(io: file, filename: "user#{i}.png", content_type: 'image/png')
       end
-      if i == 0
-        header_image_path = Rails.root.join("db/seeds/header.jpg")
+      if i.zero?
+        header_image_path = Rails.root.join('db/seeds/header.jpg')
         if File.exist?(header_image_path)
           file = File.open(header_image_path)
-          user.header_image.attach(io: file, filename: "header.jpg", content_type: 'image/jpeg')
+          user.header_image.attach(io: file, filename: 'header.jpg', content_type: 'image/jpeg')
         end
       end
       user.save!
       users << user
     end
-    
+
     # ユーザー0がユーザー1とユーザー2をフォロー
     users[0].follow(users[1])
     users[0].follow(users[2])
@@ -116,9 +116,9 @@ if Rails.env.production?
       user = User.new(
         email: "user#{i}@example.com", password: 'password',
         password_confirmation: 'password', user_name: "User#{i}",
-        introduction: "2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます",
+        introduction: '2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます',
         tel: '0000000000', birthdate: '1990-01-01',
-        location: 'Tokyo', website_url: "test@example.com",
+        location: 'Tokyo', website_url: 'test@example.com',
         uid: SecureRandom.uuid, confirmed_at: Time.zone.now
       )
       file_path = Rails.root.join("db/seeds/user#{i}.png")
