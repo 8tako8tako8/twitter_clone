@@ -1,134 +1,102 @@
-- if user_signed_in?
-  .container.mt-4.mb-4
-    .row
-      .col-lg-3
-        ul
-          .list-group
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-house-door.margin-right-1
-              span ホーム
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-hash.margin-right-1
-              span 話題を検索
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bell.margin-right-1
-              span 通知
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bookmark.margin-right-1
-              span ブックマーク
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-envelope.margin-right-1
-              span メッセージ
-            = link_to user_path(current_user), class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
-              i.bi.bi-person.margin-right-1
-              span プロフィール
-        .d-flex.justify-content-center
-          button.btn.btn-primary.rounded-pill.btn-tweet ツイートする
-        .card.mt-4.border-none
-          .row.g-0.d-flex.justify-content-center
-            .col-md-auto.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
-            .col-md-auto
-              .card-body
-                h3 = current_user.user_name
-      .col-lg-6.border-sides
-        .card.mb-4
-          .card-img-top style="height: 300px; overflow: hidden;"
-            - if @user.header_image.attached?
-              = image_tag @user.header_image, class: 'img-fluid', style: 'width: 100%; height: 100%; object-fit: cover;'
-            - else
-              = image_tag 'blue.jpeg', class: 'img-fluid', style: 'width: 100%; height: 100%; object-fit: cover;'
-          .card-body
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-6.border-sides
+      .card.mb-4
+        .card-img-top.card-header-image
+          - if @user.header_image.attached?
+            = image_tag @user.header_image, class: 'img-fluid header-image'
+          - else
+            = image_tag 'blue.jpeg', class: 'img-fluid header-image'
+        .card-body
+          .row.g-0
+            .d-flex.justify-content-between
+              .col-md-auto.d-flex.align-items-center
+                - if @user.image.attached?
+                  = image_tag @user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+                h3 = @user.user_name
+              - if current_user.id == @user.id
+                .col-md-auto
+                  = link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-dark'
+          - if @user.introduction.present?
+            .mt-2
+              = @user.introduction
+          .d-flex.text-muted.mt-3
+            - if @user.location.present?
+              i.bi.bi-geo-alt = @user.location
+            - if @user.website_url.present?
+              i.bi.bi-link-45deg = link_to @user.website_url
+            - if @user.birthdate.present?
+              i.bi.bi-balloon = "誕生日: #{@user.birthdate}"
+      ul.nav.nav-tabs.nav-fill
+        li.nav-item
+          = link_to "ツイート", user_path(@user), class: "nav-link #{'active' if params[:view].nil?}"
+        li.nav-item
+          = link_to "いいね", user_path(@user, view: 'favorite'), class: "nav-link #{'active' if params[:view] == 'favorite'}"
+        li.nav-item
+          = link_to "リツイート", user_path(@user, view: 'retweet'), class: "nav-link #{'active' if params[:view] == 'retweet'}"
+        li.nav-item
+          = link_to "コメント", user_path(@user, view: 'comment'), class: "nav-link #{'active' if params[:view] == 'comment'}"
+      - if params[:view].nil?
+        - @tweets.each do |tweet|
+          .card.border-top-bottom
             .row.g-0
-              .d-flex.justify-content-between
-                .col-md-auto.d-flex.align-items-center
-                  - if @user.image.attached?
-                    = image_tag @user.image.variant(resize_to_fit: [60, 60])
-                  - else
-                    = image_tag 'no_image.png', size: '60x60'
-                  h3 = @user.user_name
-                - if current_user.id == @user.id
-                  .col-md-auto
-                    = link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-outline-secondary'
-            - if @user.introduction.present?
-              .mt-2
-                = @user.introduction
-            .d-flex.text-muted.mt-3
-              - if @user.location.present?
-                i.bi.bi-geo-alt = @user.location
-              - if @user.website_url.present?
-                i.bi.bi-link-45deg = link_to @user.website_url
-              - if @user.birthdate.present?
-                i.bi.bi-balloon = "誕生日: #{@user.birthdate}"
-        ul.nav.nav-tabs.nav-fill.nav-pills
-          li.nav-item.border-none
-            = link_to "ツイート", user_path(@user), class: "nav-link border-none #{'active' if params[:view].nil?}"
-          li.nav-item.border-none
-            = link_to "いいね", user_path(@user, view: 'favorite'), class: "nav-link border-none #{'active' if params[:view] == 'favorite'}"
-          li.nav-item.border-none
-            = link_to "リツイート", user_path(@user, view: 'retweet'), class: "nav-link border-none #{'active' if params[:view] == 'retweet'}"
-          li.nav-item.border-none
-            = link_to "コメント", user_path(@user, view: 'comment'), class: "nav-link border-none #{'active' if params[:view] == 'comment'}"
-        - if params[:view].nil?
-          - @tweets.each do |tweet|
-            .card.border-top-bottom
-              .row.g-0
-                .col-md-2.mt-3.d-flex.justify-content-center
-                  - if tweet.user.image.attached?
-                    = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
-                  - else
-                    = image_tag 'no_image.png', size: '60x60'
-                .col-md-10
-                  .card-body
-                    h5.card-title = tweet.user.user_name
-                    p.card-text = tweet.tweet
-          .nav.justify-content-center.mt-3
-            = paginate @tweets
-        - elsif params[:view] == 'favorite'
-          - @favorites.each do |favorite|
-            .card.border-top-bottom
-              .row.g-0
-                .col-md-2.mt-3.d-flex.justify-content-center
-                  - if favorite.tweet.user.image.attached?
-                    = image_tag favorite.tweet.user.image.variant(resize_to_fit: [60, 60])
-                  - else
-                    = image_tag 'no_image.png', size: '60x60'
-                .col-md-10
-                  .card-body
-                    h5.card-title = favorite.tweet.user.user_name
-                    p.card-text = favorite.tweet.tweet
-          .nav.justify-content-center.mt-3
-            = paginate @favorites
-        - elsif params[:view] == 'retweet'
-          - @retweets.each do |retweet|
-            .card.border-top-bottom
-              .row.g-0
-                .col-md-2.mt-3.d-flex.justify-content-center
-                  - if retweet.tweet.user.image.attached?
-                    = image_tag retweet.tweet.user.image.variant(resize_to_fit: [60, 60])
-                  - else
-                    = image_tag 'no_image.png', size: '60x60'
-                .col-md-10
-                  .card-body
-                    h5.card-title = retweet.tweet.user.user_name
-                    p.card-text = retweet.tweet.tweet
-          .nav.justify-content-center.mt-3
-            = paginate @retweets
-        - elsif params[:view] == 'comment'
-          - @comments.each do |comment|
-            .card.border-top-bottom
-              .row.g-0
-                .col-md-2.mt-3.d-flex.justify-content-center
-                  - if comment.tweet.user.image.attached?
-                    = image_tag comment.tweet.user.image.variant(resize_to_fit: [60, 60])
-                  - else
-                    = image_tag 'no_image.png', size: '60x60'
-                .col-md-10
-                  .card-body
-                    h5.card-title = comment.tweet.user.user_name
-                    p.card-text = comment.tweet.tweet
-          .nav.justify-content-center.mt-3
-            = paginate @comments
+              .col-md-2.mt-3.d-flex.justify-content-center
+                - if tweet.user.image.attached?
+                  = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+              .col-md-10
+                .card-body
+                  h5.card-title = tweet.user.user_name
+                  p.card-text = tweet.tweet
+        .nav.justify-content-center.mt-3
+          = paginate @tweets
+      - elsif params[:view] == 'favorite'
+        - @favorites.each do |favorite|
+          .card.border-top-bottom
+            .row.g-0
+              .col-md-2.mt-3.d-flex.justify-content-center
+                - if favorite.tweet.user.image.attached?
+                  = image_tag favorite.tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+              .col-md-10
+                .card-body
+                  h5.card-title = favorite.tweet.user.user_name
+                  p.card-text = favorite.tweet.tweet
+        .nav.justify-content-center.mt-3
+          = paginate @favorites
+      - elsif params[:view] == 'retweet'
+        - @retweets.each do |retweet|
+          .card.border-top-bottom
+            .row.g-0
+              .col-md-2.mt-3.d-flex.justify-content-center
+                - if retweet.tweet.user.image.attached?
+                  = image_tag retweet.tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+              .col-md-10
+                .card-body
+                  h5.card-title = retweet.tweet.user.user_name
+                  p.card-text = retweet.tweet.tweet
+        .nav.justify-content-center.mt-3
+          = paginate @retweets
+      - elsif params[:view] == 'comment'
+        - @comments.each do |comment|
+          .card.border-top-bottom
+            .row.g-0
+              .col-md-2.mt-3.d-flex.justify-content-center
+                - if comment.tweet.user.image.attached?
+                  = image_tag comment.tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
+              .col-md-10
+                .card-body
+                  h5.card-title = comment.tweet.user.user_name
+                  p.card-text = comment.tweet.tweet
+        .nav.justify-content-center.mt-3
+          = paginate @comments
