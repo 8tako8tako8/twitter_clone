@@ -6,24 +6,24 @@
       = render partial: 'profile', locals: { user: @user }
       ul.nav.nav-tabs.nav-fill
         li.nav-item
-          = link_to "ツイート", user_path(@user), class: "nav-link active"
+          = link_to "ツイート", user_path(@user), class: "nav-link"
         li.nav-item
-          = link_to "いいね", favorites_path(user_id: @user.id), class: "nav-link"
+          = link_to "いいね", favorites_path(user_id: @user.id), class: "nav-link active"
         li.nav-item
           = link_to "リツイート", retweets_path(user_id: @user.id), class: "nav-link"
         li.nav-item
           = link_to "コメント", comments_path(user_id: @user.id), class: "nav-link"
-      - @tweets.each do |tweet|
+      - @favorites.each do |favorite|
         .card.border-top-bottom
           .row.g-0
             .col-md-2.mt-3.d-flex.justify-content-center
-              - if tweet.user.image.attached?
-                = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
+              - if favorite.tweet.user.image.attached?
+                = image_tag favorite.tweet.user.image.variant(resize_to_fit: [60, 60])
               - else
                 = image_tag 'no_image.png', size: '60x60'
             .col-md-10
               .card-body
-                h5.card-title = tweet.user.user_name
-                p.card-text = tweet.tweet
+                h5.card-title = favorite.tweet.user.user_name
+                p.card-text = favorite.tweet.tweet
       .nav.justify-content-center.mt-3
-        = paginate @tweets
+        = paginate @favorites
