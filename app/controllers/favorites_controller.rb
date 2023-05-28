@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FavoritesController < ApplicationController
   def index
     return redirect_to root_path unless user_signed_in?
