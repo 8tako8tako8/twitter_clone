@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  def show
-    return redirect_to root_path unless user_signed_in?
+  before_action :authenticate_user!
 
+  def show
     @user = User.find(params[:id])
-    case params[:view]
-    when 'favorite'
-      @favorites = Favorite.where(user_id: params[:id]).order(created_at: :desc).page(params[:page]).per(10)
-    when 'retweet'
-      @retweets = Retweet.where(user_id: params[:id]).order(created_at: :desc).page(params[:page]).per(10)
-    when 'comment'
-      @comments = Comment.where(user_id: params[:id]).order(created_at: :desc).page(params[:page]).per(10)
-    else
-      @tweets = Tweet.where(user_id: params[:id]).order(created_at: :desc).page(params[:page]).per(10)
-    end
+    @tweets = @user.tweets.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit

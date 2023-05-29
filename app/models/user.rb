@@ -38,25 +38,15 @@ class User < ApplicationRecord
   end
 
   def favorite(tweet)
-    Favorite.where(tweet_id: tweet.id).first_or_create(
-      tweet_id: tweet.id,
-      user_id: id
-    )
+    favorites.find_or_create_by(tweet: tweet)
   end
 
   def retweet(tweet)
-    Retweet.where(tweet_id: tweet.id).first_or_create(
-      tweet_id: tweet.id,
-      user_id: id
-    )
+    retweets.find_or_create_by(tweet: tweet)
   end
 
   def comment(comment, tweet)
-    Comment.create(
-      comment: comment,
-      tweet_id: tweet.id,
-      user_id: id
-    )
+    comments.create(comment: comment, tweet: tweet)
   end
 
   private
