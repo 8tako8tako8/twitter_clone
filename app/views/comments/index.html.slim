@@ -8,11 +8,11 @@
         li.nav-item
           = link_to "ツイート", user_path(@user), class: "nav-link"
         li.nav-item
-          = link_to "いいね", favorites_path(user_id: @user.id), class: "nav-link"
+          = link_to "いいね", user_favorites_path(@user), class: "nav-link"
         li.nav-item
-          = link_to "リツイート", retweets_path(user_id: @user.id), class: "nav-link"
+          = link_to "リツイート", user_retweets_path(@user), class: "nav-link"
         li.nav-item
-          = link_to "コメント", comments_path(user_id: @user.id), class: "nav-link active"
+          = link_to "コメント", user_comments_path(@user), class: "nav-link active"
       - @comments.each do |comment|
         .card.border-top-bottom
           .row.g-0
