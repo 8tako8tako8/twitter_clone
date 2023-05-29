@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      tweet: "ツイート"
     attributes:
       user:
         user_name: "ユーザー名"
@@ -10,3 +11,5 @@ ja:
         location: "所在地"
         birthdate: "生年月日"
         website_url: "ウェブサイトURL"
+      tweet:
+        tweet: "ツイート"
