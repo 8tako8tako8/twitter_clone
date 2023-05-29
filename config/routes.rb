@@ -6,6 +6,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations'
   }
-  resources :users, only: [:show]
+  resources :users, only: %i[show edit update]
   root 'tweets#index'
 end
