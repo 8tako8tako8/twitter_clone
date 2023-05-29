@@ -15,7 +15,7 @@
           h3 = @user.user_name
         - if current_user.id == @user.id
           .col-md-auto
-            = link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-dark'
+            = link_to 'プロフィールを編集', edit_user_path(@user), class: 'btn btn-light'
     - if @user.introduction.present?
       .mt-2
         = @user.introduction
