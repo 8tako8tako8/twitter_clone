@@ -23,6 +23,11 @@ class TweetsController < ApplicationController
     end
   end
 
+  def show
+    @tweet = Tweet.find(params[:id])
+    @comments = @tweet.comments.order(created_at: :asc).page(params[:page]).per(10)
+  end
+
   private
 
   def tweet_params
