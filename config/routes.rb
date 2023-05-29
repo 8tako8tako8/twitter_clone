@@ -7,4 +7,5 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   root 'tweets#index'
+  resources :tweets, only: [:create]
 end
