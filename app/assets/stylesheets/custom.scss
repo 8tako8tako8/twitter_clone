@@ -31,3 +31,28 @@
   resize: none;
   border: none;
 }
+
+.nav-item .nav-link {
+  color: grey;
+  border: none;
+}
+
+.nav-item .nav-link:hover {
+  background-color: darkgray;
+}
+
+.nav-item .nav-link.active {
+  color: black;
+  border-bottom: 3px solid blue;
+}
+
+.card-header-image {
+  height: 300px;
+  overflow: hidden;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
