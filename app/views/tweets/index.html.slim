@@ -85,5 +85,7 @@
                 .card-body
                   h5.card-title = tweet.user.user_name
                   p.card-text = tweet.tweet
+                  - if tweet.image.attached?
+                    = image_tag tweet.image.variant(resize_to_fit: [300, 300])
         .nav.justify-content-center.mt-3
           = paginate @tweets
