@@ -3,6 +3,7 @@ ja:
     models:
       user: "ユーザー"
       tweet: "ツイート"
+      comment: "コメント"
     attributes:
       user:
         user_name: "ユーザー名"
@@ -13,3 +14,5 @@ ja:
         website_url: "ウェブサイトURL"
       tweet:
         tweet: "ツイート"
+      comment:
+        comment: "コメント"
