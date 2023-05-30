@@ -12,10 +12,6 @@ Rails.application.routes.draw do
     resources :retweets, only: [:index]
     resources :comments, only: [:index]
   end
-<<<<<<< HEAD
-  resources :users, only: %i[edit update]
-  resources :tweets, only: [:create]
-=======
   resource :user, only: %i[edit update], as: 'profile'
->>>>>>> main
+  resources :tweets, only: [:create]
 end
