@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   end
   resource :user, only: %i[edit update], as: 'profile'
   resources :tweets, only: [:create]
+  resources :tweets, only: [:show] do
+    resources :comments, only: [:create]
+  end
 end
