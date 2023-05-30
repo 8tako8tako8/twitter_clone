@@ -3,7 +3,7 @@
     .col-lg-3
       = render 'sidebar'
     .col-lg-6.border-sides
-      = form_with(model: current_user) do |f|
+      = form_with model: current_user, url: '/user' do |f|
         = render "users/shared/error_messages", resource: current_user
         .card.mb-4.border-none
           .d-flex.justify-content-between
