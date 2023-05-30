@@ -15,41 +15,10 @@
   .container.mt-4.mb-4
     .row
       .col-lg-3
-        ul
-          .list-group
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-house-door.margin-right-1
-              span ホーム
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-hash.margin-right-1
-              span 話題を検索
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bell.margin-right-1
-              span 通知
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bookmark.margin-right-1
-              span ブックマーク
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-envelope.margin-right-1
-              span メッセージ
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-person.margin-right-1
-              span プロフィール
-        .d-flex.justify-content-center
-          button.btn.btn-primary.rounded-pill.btn-tweet ツイートする
-        .card.mt-4.border-none
-          .row.g-0.d-flex.justify-content-center
-            .col-md-auto.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
-            .col-md-auto
-              .card-body
-                h3 = current_user.user_name
+        = render 'sidebar'
       .col-lg-6.border-sides
         h3.bold ホーム
-        ul.nav.nav-tabs.nav-fill.nav-pills
+        ul.nav.nav-tabs.nav-fill
           li.nav-item.border-none
             = link_to "おすすめ", root_path, class: "nav-link border-none #{'active' if params[:view].nil?}"
           li.nav-item.border-none
@@ -57,10 +26,11 @@
         .card.border-top-bottom
           .row.g-0
             .col-md-2.mt-3.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
+              = link_to user_path(current_user)
+                - if current_user.image.attached?
+                  = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
             .col-md-10
               .card-body
                 form

@@ -7,4 +7,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   root 'tweets#index'
+  resources :users, only: [:show] do
+    resources :favorites, only: [:index]
+    resources :retweets, only: [:index]
+    resources :comments, only: [:index]
+  end
 end
