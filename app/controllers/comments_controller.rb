@@ -9,8 +9,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    tweet = Tweet.find(params[:id])
-    current_user.comment(comment_params, tweet)
+    @tweet = Tweet.find(params[:tweet_id])
+    @comment = current_user.comment(comment_params[:comment], @tweet)
+
+    if @comment.persisted?
+      flash[:notice] = 'コメントを投稿しました。'
+      redirect_to tweet_path(@tweet)
+    else
+      @comments = @tweet.comments.order(created_at: :asc).page(params[:page]).per(10)
+      render 'tweets/show', status: :unprocessable_entity
+    end
   end
 
   private
