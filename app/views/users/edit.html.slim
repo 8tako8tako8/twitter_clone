@@ -15,7 +15,7 @@
             - if current_user.header_image.attached?
               = image_tag current_user.header_image, class: 'img-fluid header-image'
             - else
-              = image_tag 'blue.jpeg', class: 'img-fluid header-image'
+              = image_tag 'blue.jpg', class: 'img-fluid header-image'
           .form-group
             = f.file_field :header_image, accept: 'image/png,image/jpeg'
           .card-body
