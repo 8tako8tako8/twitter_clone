@@ -3,7 +3,7 @@
     - if @user.header_image.attached?
       = image_tag @user.header_image, class: 'img-fluid header-image'
     - else
-      = image_tag 'blue.jpeg', class: 'img-fluid header-image'
+      = image_tag 'blue.jpg', class: 'img-fluid header-image'
   .card-body
     .row.g-0
       .d-flex.justify-content-between
@@ -15,7 +15,7 @@
           h3 = @user.user_name
         - if current_user.id == @user.id
           .col-md-auto
-            = link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-dark'
+            = link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-light'
     - if @user.introduction.present?
       .mt-2
         = @user.introduction

@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates :user_name, presence: true, unless: :github_provider?
   validates :birthdate, presence: true, unless: :github_provider?
   validates :uid, presence: true, uniqueness: { scope: :provider }
+  validates :website_url, format: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/, allow_blank: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|

@@ -12,4 +12,5 @@ Rails.application.routes.draw do
     resources :retweets, only: [:index]
     resources :comments, only: [:index]
   end
+  resource :user, only: %i[edit update], as: 'profile'
 end
