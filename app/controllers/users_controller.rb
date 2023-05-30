@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :identical_user, only: %i[edit update]
 
   def show
     @user = User.find(params[:id])
@@ -26,5 +27,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:header_image, :image, :introduction, :location, :website_url, :birthdate)
+  end
+
+  def identical_user
+    unless current_user.id == params[:id].to_i
+      flash[:alert] = "アクセス権がありません。"
+      redirect_to root_path
+    end
   end
 end
