@@ -9,7 +9,7 @@ if Rails.env.development?
         password_confirmation: 'password', user_name: "User#{i}",
         introduction: '2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます',
         tel: '0000000000', birthdate: '1990-01-01',
-        location: 'Tokyo', website_url: 'test@example.com',
+        location: 'Tokyo', website_url: 'https://test.example.com',
         uid: SecureRandom.uuid, confirmed_at: Time.zone.now
       )
       image_path = Rails.root.join("db/seeds/user#{i}.png")
@@ -118,7 +118,7 @@ if Rails.env.production?
         password_confirmation: 'password', user_name: "User#{i}",
         introduction: '2023年3月〜プログラミング学習中/Ruby,Java,C言語が書けます',
         tel: '0000000000', birthdate: '1990-01-01',
-        location: 'Tokyo', website_url: 'test@example.com',
+        location: 'Tokyo', website_url: 'https://test.example.com',
         uid: SecureRandom.uuid, confirmed_at: Time.zone.now
       )
       image_path = Rails.root.join("db/seeds/user#{i}.png")

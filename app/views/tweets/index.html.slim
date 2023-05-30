@@ -17,6 +17,7 @@
       .col-lg-3
         = render 'sidebar'
       .col-lg-6.border-sides
+        = render "error_messages", resource: @tweet
         h3.bold ホーム
         ul.nav.nav-tabs.nav-fill
           li.nav-item.border-none
@@ -33,24 +34,27 @@
                   = image_tag 'no_image.png', size: '60x60'
             .col-md-10
               .card-body
-                form
+                = form_with model: @tweet do |f|
                   .form-group
-                    div
-                      textarea.form-control.textarea-tweet placeholder="いまどうしてる？"
+                    = f.text_area :tweet, class: 'form-control textarea-tweet', placeholder: "いまどうしてる？"
                     .d-flex.justify-content-between
-                      i.bi.bi-image
-                      button.btn.btn-primary.rounded-pill ツイートする
+                      = label_tag :image, '', for: "tweet_image", class: 'bi bi-image'
+                      = f.file_field :image, accept: 'image/png,image/jpeg', id: "tweet_image", style: 'display:none;'
+                      = f.submit 'ツイートする', class: 'btn btn-primary rounded-pill'
         - @tweets.each do |tweet|
           .card.border-top-bottom
             .row.g-0
               .col-md-2.mt-3.d-flex.justify-content-center
-                - if tweet.user.image.attached?
-                  = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
-                - else
-                  = image_tag 'no_image.png', size: '60x60'
+                div
+                  - if tweet.user.image.attached?
+                    = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
+                  - else
+                    = image_tag 'no_image.png', size: '60x60'
               .col-md-10
                 .card-body
                   h5.card-title = tweet.user.user_name
                   p.card-text = tweet.tweet
+                  - if tweet.image.attached?
+                    = image_tag tweet.image.variant(resize_to_fit: [300, 300])
         .nav.justify-content-center.mt-3
           = paginate @tweets
