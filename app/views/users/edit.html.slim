@@ -3,8 +3,8 @@
     .col-lg-3
       = render 'sidebar'
     .col-lg-6.border-sides
-      = form_with model: current_user, url: '/user' do |f|
-        = render "users/shared/error_messages", resource: current_user
+      = form_with(model: @user, url: profile_path) do |f|
+        = render "users/shared/error_messages", resource: @user
         .card.mb-4.border-none
           .d-flex.justify-content-between
             .col-md-auto.d-flex.align-items-center
@@ -12,15 +12,15 @@
             .col-md-auto
               = f.submit '保存', class: 'btn btn-dark'
           .card-img-top.card-header-image.mt-3
-            - if current_user.header_image.attached?
-              = image_tag current_user.header_image, class: 'img-fluid header-image'
+            - if @user.header_image.attached?
+              = image_tag @user.header_image, class: 'img-fluid header-image'
             - else
               = image_tag 'blue.jpg', class: 'img-fluid header-image'
           .form-group
             = f.file_field :header_image, accept: 'image/png,image/jpeg'
           .card-body
-            - if current_user.image.attached?
-              = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+            - if @user.image.attached?
+              = image_tag @user.image.variant(resize_to_fit: [60, 60])
             - else
               = image_tag 'no_image.png', size: '60x60'
             .form-group
