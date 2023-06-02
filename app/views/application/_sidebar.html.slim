@@ -1,0 +1,32 @@
+ul
+  .list-group
+    = link_to root_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
+      i.bi.bi-house-door.margin-right-1
+      span ホーム
+    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+      i.bi.bi-hash.margin-right-1
+      span 話題を検索
+    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+      i.bi.bi-bell.margin-right-1
+      span 通知
+    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+      i.bi.bi-bookmark.margin-right-1
+      span ブックマーク
+    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+      i.bi.bi-envelope.margin-right-1
+      span メッセージ
+    = link_to user_path(current_user), class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
+      i.bi.bi-person.margin-right-1
+      span プロフィール
+.d-flex.justify-content-center
+  = link_to 'ツイートする', root_path, class: "btn btn-primary rounded-pill btn-tweet"
+.card.mt-4.border-none
+  .row.g-0.d-flex.justify-content-center
+    .col-md-auto.d-flex.justify-content-center
+      - if current_user.image.attached?
+        = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+      - else
+        = image_tag 'no_image.png', size: '60x60'
+    .col-md-auto
+      .card-body
+        h3 = current_user.user_name
