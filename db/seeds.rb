@@ -39,6 +39,15 @@ if Rails.env.development?
       end
     end
 
+    # ユーザー0が画像付きのツイートを投稿
+    user0_tweet = users[0].tweets.build(tweet: 'いい天気です！')
+    image_path = Rails.root.join('db/seeds/sky.jpg')
+    if File.exist?(image_path)
+      file = File.open(image_path)
+      user0_tweet.image.attach(io: file, filename: 'sky.jpg', content_type: 'image/jpeg')
+    end
+    user0_tweet.save!
+
     # ユーザー0がユーザー1のツイートをいいね
     user1_tweets = Tweet.where(user_id: users[1].id)
     user1_tweets.each do |tweet|
@@ -147,6 +156,15 @@ if Rails.env.production?
         user.tweets.create!(tweet: "#{user.user_name}によるツイートです。")
       end
     end
+
+    # ユーザー0が画像付きのツイートを投稿
+    user0_tweet = users[0].tweets.build(tweet: 'いい天気です！')
+    image_path = Rails.root.join('db/seeds/sky.jpg')
+    if File.exist?(image_path)
+      file = File.open(image_path)
+      user0_tweet.image.attach(io: file, filename: 'sky.jpg', content_type: 'image/jpeg')
+    end
+    user0_tweet.save!
 
     # ユーザー0がユーザー1のツイートをいいね
     user1_tweets = Tweet.where(user_id: users[1].id)
