@@ -64,8 +64,16 @@
               .col-md-10.mb-2
                 .d-flex.justify-content-around
                   div
-                    = link_to root_path, class: "black-link" do
-                      i.bi.bi-recycle.font-size-20
+                    - if current_user.retweets.exists?(tweet_id: tweet.id)
+                      = link_to tweet_retweet_path(tweet), data: { "turbo-method": :delete }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-recycle.text-success.font-size-20.margin-right-1
+                          span.text-success = tweet.count_retweets
+                    - else
+                      = link_to tweet_retweet_path(tweet), data: { "turbo-method": :post }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-recycle.font-size-20.margin-right-1
+                          = tweet.count_retweets
                   div
                     - if current_user.favorites.exists?(tweet_id: tweet.id)
                       = link_to tweet_favorite_path(tweet), data: { "turbo-method": :delete }, class: "black-link" do
