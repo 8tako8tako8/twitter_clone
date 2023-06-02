@@ -43,7 +43,7 @@ class User < ApplicationRecord
   end
 
   def unfavorite(tweet)
-    favorites.find_by(tweet: tweet).destroy
+    favorites.find_by(tweet: tweet)&.destroy
   end
 
   def retweet(tweet)
