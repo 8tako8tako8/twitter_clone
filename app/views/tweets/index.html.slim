@@ -71,7 +71,7 @@
                       = link_to tweet_favorite_path(tweet), data: { "turbo-method": :delete }, class: "black-link" do
                         .d-flex.align-items-center
                           i.bi.bi-heart-fill.text-danger.font-size-20.margin-right-1
-                          = tweet.count_favorites
+                          span.text-danger = tweet.count_favorites
                     - else
                       = link_to tweet_favorite_path(tweet), data: { "turbo-method": :post }, class: "black-link" do
                         .d-flex.align-items-center
