@@ -59,5 +59,26 @@
                     p.card-text = tweet.tweet
                     - if tweet.image.attached?
                       = image_tag tweet.image.variant(resize_to_fit: [300, 300])
+              .col-md-2
+                br
+              .col-md-10
+                .d-flex.justify-content-around
+                  div
+                    = link_to root_path, class: "black-link" do
+                      i.bi.bi-recycle.font-size-20
+                  div
+                    - if current_user.favorites.exists?(tweet_id: tweet.id)
+                      = link_to tweet_favorite_path(tweet), data: { "turbo-method": :delete }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-heart-fill.text-danger.font-size-20.margin-right-1
+                          = tweet.count_favorites
+                    - else
+                      = link_to tweet_favorite_path(tweet), data: { "turbo-method": :post }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-heart.font-size-20.margin-right-1
+                          = tweet.count_favorites
+                  div
+                    = link_to root_path, class: "black-link" do
+                      i.bi.bi-bookmark.font-size-20
         .nav.justify-content-center.mt-3
           = paginate @tweets
