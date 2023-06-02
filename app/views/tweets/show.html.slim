@@ -1,0 +1,71 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-6.border-sides
+      .card.border-top-bottom
+        .card-body
+          .row.g-0
+            .col-md-auto.d-flex.align-items-center
+              - if @tweet.user.image.attached?
+                = link_to user_path(@tweet.user) do
+                  = image_tag @tweet.user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = link_to user_path(@tweet.user) do
+                  = image_tag 'no_image.png', size: '60x60'
+              h3 = @tweet.user.user_name
+            .mt-2
+              p = @tweet.tweet
+            .mt-2
+              - if @tweet.image.attached?
+                = image_tag @tweet.image.variant(resize_to_fit: [300, 300])
+      .card.border-top-bottom
+        .card-body
+          .row.g-0
+            .col-md-auto.d-flex.align-items-center
+              | ?件のリツイート 
+              | ?件のいいね 
+      .card.border-top-bottom
+        .row.g-0.mt-2.mb-2
+          .d-flex.justify-content-around
+            = link_to root_path, class: "black-link" do
+              i.bi.bi-recycle.font-size-20
+            = link_to root_path, class: "black-link" do
+              i.bi.bi-heart.font-size-20
+            = link_to root_path, class: "black-link" do
+              i.bi.bi-bookmark.font-size-20
+      = render "error_messages", resource: @comment
+      .card.border-top-bottom
+        .row.g-0
+          .col-md-2.mt-3.d-flex.justify-content-center
+            = link_to user_path(current_user)
+              - if current_user.image.attached?
+                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = image_tag 'no_image.png', size: '60x60'
+          .col-md-10
+            .card-body
+              = form_with(model: @comment, url: tweet_comments_path(@tweet)) do |f|
+                .d-flex.justify-content-between
+                  .form-group
+                    = f.text_area :comment, class: 'form-control textarea-comment', placeholder: "返信をツイート"
+                  .form-group
+                    = f.submit '返信', class: 'btn btn-primary rounded-pill'
+      - @comments.each do |comment|
+        .card.border-top-bottom
+          .row.g-0
+            .col-md-2.mt-3.d-flex.justify-content-center
+              - if comment.user.image.attached?
+                = link_to user_path(comment.user) do
+                  = image_tag comment.user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = link_to user_path(comment.user) do
+                  = image_tag 'no_image.png', size: '60x60'
+            .col-md-10
+              .card-body
+                h5.card-title = comment.user.user_name
+                p.card-text = comment.comment
+      .nav.justify-content-center.mt-3
+        = paginate @comments
+
+
