@@ -12,4 +12,8 @@ class Tweet < ApplicationRecord
   def count_favorites
     favorites.size
   end
+
+  def count_retweets
+    retweets.size
+  end
 end

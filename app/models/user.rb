@@ -50,6 +50,10 @@ class User < ApplicationRecord
     retweets.find_or_create_by(tweet: tweet)
   end
 
+  def unretweet(tweet)
+    retweets.find_by(tweet: tweet)&.destroy
+  end
+
   def comment(comment, tweet)
     comments.create(comment: comment, tweet: tweet)
   end
