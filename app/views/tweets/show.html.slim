@@ -24,16 +24,25 @@
           .row.g-0
             .col-md-auto.d-flex.align-items-center
               | ?件のリツイート 
-              | ?件のいいね 
+              = "#{@tweet.count_favorites}件のいいね"
       .card.border-top-bottom
         .row.g-0.mt-2.mb-2
           .d-flex.justify-content-around
-            = link_to root_path, class: "black-link" do
-              i.bi.bi-recycle.font-size-20
-            = link_to root_path, class: "black-link" do
-              i.bi.bi-heart.font-size-20
-            = link_to root_path, class: "black-link" do
-              i.bi.bi-bookmark.font-size-20
+            div
+              = link_to root_path, class: "black-link" do
+                i.bi.bi-recycle.font-size-20
+            div
+              - if current_user.favorites.exists?(tweet_id: @tweet.id)
+                = link_to tweet_favorite_path(@tweet), data: { "turbo-method": :delete }, class: "black-link" do
+                  .d-flex.align-items-center
+                    i.bi.bi-heart-fill.text-danger.font-size-20.margin-right-1
+              - else
+                = link_to tweet_favorite_path(@tweet), data: { "turbo-method": :post }, class: "black-link" do
+                  .d-flex.align-items-center
+                      i.bi.bi-heart.font-size-20.margin-right-1
+            div
+              = link_to root_path, class: "black-link" do
+                i.bi.bi-bookmark.font-size-20
       = render "error_messages", resource: @comment
       .card.border-top-bottom
         .row.g-0

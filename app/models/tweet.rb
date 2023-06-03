@@ -8,4 +8,8 @@ class Tweet < ApplicationRecord
   has_one_attached :image
 
   validates :tweet, presence: true, length: { maximum: 140 }
+
+  def count_favorites
+    favorites.size
+  end
 end

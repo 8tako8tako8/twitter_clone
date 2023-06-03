@@ -42,6 +42,10 @@ class User < ApplicationRecord
     favorites.find_or_create_by(tweet: tweet)
   end
 
+  def unfavorite(tweet)
+    favorites.find_by(tweet: tweet)&.destroy
+  end
+
   def retweet(tweet)
     retweets.find_or_create_by(tweet: tweet)
   end
