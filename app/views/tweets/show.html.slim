@@ -23,9 +23,13 @@
                     ul.dropdown-menu aria-labelledby="dropdownMenuButton"
                       li
                         - if current_user.followings.exists?(@tweet.user.id)
-                          = link_to "フォロー解除", user_follow_path(@tweet.user), data: { "turbo-method": :delete }, class: "dropdown-item"
+                          = link_to user_follow_path(@tweet.user), data: { "turbo-method": :delete }, class: "dropdown-item" do
+                            i.bi.bi-person-dash.font-size-20
+                            = "  #{@tweet.user.user_name}をフォロー解除"
                         - else
-                          = link_to "フォローする", user_follow_path(@tweet.user), data: { "turbo-method": :post }, class: "dropdown-item"
+                          = link_to user_follow_path(@tweet.user), data: { "turbo-method": :post }, class: "dropdown-item" do
+                            i.bi.bi-person-plus.font-size-20
+                            = "  #{@tweet.user.user_name}をフォローする"
             .mt-2
               p = @tweet.tweet
             .mt-2
