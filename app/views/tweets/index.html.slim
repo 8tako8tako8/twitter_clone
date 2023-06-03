@@ -15,41 +15,11 @@
   .container.mt-4.mb-4
     .row
       .col-lg-3
-        ul
-          .list-group
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-house-door.margin-right-1
-              span ホーム
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-hash.margin-right-1
-              span 話題を検索
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bell.margin-right-1
-              span 通知
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-bookmark.margin-right-1
-              span ブックマーク
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-envelope.margin-right-1
-              span メッセージ
-            a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-              i.bi.bi-person.margin-right-1
-              span プロフィール
-        .d-flex.justify-content-center
-          button.btn.btn-primary.rounded-pill.btn-tweet ツイートする
-        .card.mt-4.border-none
-          .row.g-0.d-flex.justify-content-center
-            .col-md-auto.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
-            .col-md-auto
-              .card-body
-                h3 = current_user.user_name
+        = render 'sidebar'
       .col-lg-6.border-sides
+        = render "error_messages", resource: @tweet
         h3.bold ホーム
-        ul.nav.nav-tabs.nav-fill.nav-pills
+        ul.nav.nav-tabs.nav-fill
           li.nav-item.border-none
             = link_to "おすすめ", root_path, class: "nav-link border-none #{'active' if params[:view].nil?}"
           li.nav-item.border-none
@@ -57,30 +27,58 @@
         .card.border-top-bottom
           .row.g-0
             .col-md-2.mt-3.d-flex.justify-content-center
-              - if current_user.image.attached?
-                = image_tag current_user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = image_tag 'no_image.png', size: '60x60'
+              = link_to user_path(current_user)
+                - if current_user.image.attached?
+                  = image_tag current_user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = image_tag 'no_image.png', size: '60x60'
             .col-md-10
               .card-body
-                form
+                = form_with model: @tweet do |f|
                   .form-group
-                    div
-                      textarea.form-control.textarea-tweet placeholder="いまどうしてる？"
+                    = f.text_area :tweet, class: 'form-control textarea-tweet', placeholder: "いまどうしてる？"
                     .d-flex.justify-content-between
-                      i.bi.bi-image
-                      button.btn.btn-primary.rounded-pill ツイートする
+                      = label_tag :image, '', for: "tweet_image", class: 'bi bi-image'
+                      = f.file_field :image, accept: 'image/png,image/jpeg', id: "tweet_image", style: 'display:none;'
+                      = f.submit 'ツイートする', class: 'btn btn-primary rounded-pill'
         - @tweets.each do |tweet|
           .card.border-top-bottom
             .row.g-0
               .col-md-2.mt-3.d-flex.justify-content-center
-                - if tweet.user.image.attached?
-                  = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
-                - else
-                  = image_tag 'no_image.png', size: '60x60'
+                div
+                  - if tweet.user.image.attached?
+                    = link_to user_path(tweet.user) do
+                      = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
+                  - else
+                    = link_to user_path(tweet.user) do
+                      = image_tag 'no_image.png', size: '60x60'
               .col-md-10
-                .card-body
-                  h5.card-title = tweet.user.user_name
-                  p.card-text = tweet.tweet
+                = link_to tweet_path(tweet), class: 'black-link' do
+                  .card-body
+                    h5.card-title = tweet.user.user_name
+                    p.card-text = tweet.tweet
+                    - if tweet.image.attached?
+                      = image_tag tweet.image.variant(resize_to_fit: [300, 300])
+              .col-md-2
+                br
+              .col-md-10.mb-2
+                .d-flex.justify-content-around
+                  div
+                    = link_to root_path, class: "black-link" do
+                      i.bi.bi-recycle.font-size-20
+                  div
+                    - if current_user.favorites.exists?(tweet_id: tweet.id)
+                      = link_to tweet_favorite_path(tweet), data: { "turbo-method": :delete }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-heart-fill.text-danger.font-size-20.margin-right-1
+                          span.text-danger = tweet.count_favorites
+                    - else
+                      = link_to tweet_favorite_path(tweet), data: { "turbo-method": :post }, class: "black-link" do
+                        .d-flex.align-items-center
+                          i.bi.bi-heart.font-size-20.margin-right-1
+                          = tweet.count_favorites
+                  div
+                    = link_to root_path, class: "black-link" do
+                      i.bi.bi-bookmark.font-size-20
         .nav.justify-content-center.mt-3
           = paginate @tweets
