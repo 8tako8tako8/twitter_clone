@@ -18,7 +18,7 @@
               div
                 - if current_user.id != @tweet.user.id
                   .dropdown
-                    a#dropdownMenuButton.dropdown-toggle.text-decoration-none.text-dark.no-caret href="#" role="button" data-toggle="dropdown" aria-expanded="false"
+                    button#dropdownMenuButton.dropdown-toggle.border-0.bg-transparent data-bs-toggle="dropdown" aria-expanded="false"
                       i.bi.bi-three-dots.font-size-24
                     ul.dropdown-menu aria-labelledby="dropdownMenuButton"
                       li
