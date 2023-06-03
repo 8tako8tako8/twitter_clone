@@ -1,0 +1,32 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-6.border-sides
+      = render partial: 'profile', locals: { user: @user }
+      ul.nav.nav-tabs.nav-fill
+        li.nav-item
+          = link_to "ツイート", user_path(@user), class: "nav-link"
+        li.nav-item
+          = link_to "いいね", user_favorites_path(@user), class: "nav-link"
+        li.nav-item
+          = link_to "リツイート", user_retweets_path(@user), class: "nav-link"
+        li.nav-item
+          = link_to "コメント", user_comments_path(@user), class: "nav-link active"
+      - @comments.each do |comment|
+        .card.border-top-bottom
+          .row.g-0
+            .col-md-2.mt-3.d-flex.justify-content-center
+              - if comment.tweet.user.image.attached?
+                = link_to user_path(comment.tweet.user) do
+                  = image_tag comment.tweet.user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = link_to user_path(comment.tweet.user) do
+                  = image_tag 'no_image.png', size: '60x60'
+            .col-md-10
+              .card-body
+                = link_to tweet_path(comment.tweet), class: 'black-link' do
+                  h5.card-title = comment.tweet.user.user_name
+                  p.card-text = comment.tweet.tweet
+      .nav.justify-content-center.mt-3
+        = paginate @comments

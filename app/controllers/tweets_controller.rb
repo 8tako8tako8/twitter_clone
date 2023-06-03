@@ -2,14 +2,36 @@
 
 class TweetsController < ApplicationController
   def index
+    @tweet = Tweet.new
     case params[:view]
     when 'follow'
-      # フォローしているユーザーのツイート一覧
       followed_user_ids = current_user.followings.pluck(:followed_user_id)
       @tweets = Tweet.where(user_id: followed_user_ids).order(created_at: :desc).page(params[:page]).per(10)
     else
-      # 全てのツイート一覧
       @tweets = Tweet.all.order(created_at: :desc).page(params[:page]).per(10)
     end
+  end
+
+  def create
+    @tweet = current_user.tweets.build(tweet_params)
+    if @tweet.save
+      flash[:notice] = 'ツイートを投稿しました'
+      redirect_to root_path
+    else
+      @tweets = Tweet.all.order(created_at: :desc).page(params[:page]).per(10)
+      render 'index', status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @tweet = Tweet.find(params[:id])
+    @comment = Comment.new
+    @comments = @tweet.comments.order(created_at: :asc).page(params[:page]).per(10)
+  end
+
+  private
+
+  def tweet_params
+    params.require(:tweet).permit(:tweet, :image)
   end
 end
