@@ -16,15 +16,16 @@
                     = image_tag 'no_image.png', size: '60x60'
                 span.font-size-24 = @tweet.user.user_name
               div
-                .dropdown
-                  a#dropdownMenuButton.dropdown-toggle.text-decoration-none.text-dark.no-caret href="#" role="button" data-toggle="dropdown" aria-expanded="false"
-                    i.bi.bi-three-dots.font-size-24
-                  ul.dropdown-menu aria-labelledby="dropdownMenuButton"
-                    li
-                      - if current_user.followings.exists?(@tweet.user.id)
-                        = link_to "フォロー解除", user_follow_path(@tweet.user), data: { "turbo-method": :delete }, class: "dropdown-item"
-                      - else
-                        = link_to "フォローする", user_follow_path(@tweet.user), data: { "turbo-method": :post }, class: "dropdown-item"
+                - if current_user.id != @tweet.user.id
+                  .dropdown
+                    a#dropdownMenuButton.dropdown-toggle.text-decoration-none.text-dark.no-caret href="#" role="button" data-toggle="dropdown" aria-expanded="false"
+                      i.bi.bi-three-dots.font-size-24
+                    ul.dropdown-menu aria-labelledby="dropdownMenuButton"
+                      li
+                        - if current_user.followings.exists?(@tweet.user.id)
+                          = link_to "フォロー解除", user_follow_path(@tweet.user), data: { "turbo-method": :delete }, class: "dropdown-item"
+                        - else
+                          = link_to "フォローする", user_follow_path(@tweet.user), data: { "turbo-method": :post }, class: "dropdown-item"
             .mt-2
               p = @tweet.tweet
             .mt-2
