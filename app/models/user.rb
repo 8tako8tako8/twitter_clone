@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed_user
   has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy, inverse_of: :followed_user
   has_many :followers, through: :passive_relationships, source: :follower_user
+  has_many :rooms, through: :entries
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   has_one_attached :image
   has_one_attached :header_image
 
@@ -56,6 +59,10 @@ class User < ApplicationRecord
 
   def comment(comment, tweet)
     comments.create(comment: comment, tweet: tweet)
+  end
+
+  def room_with(other_user)
+    rooms & other_user.rooms
   end
 
   private
