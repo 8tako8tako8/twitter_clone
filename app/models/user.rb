@@ -35,7 +35,15 @@ class User < ApplicationRecord
   end
 
   def follow(user)
-    active_relationships.create(followed_user_id: user.id)
+    return unless id != user.id
+
+    active_relationships.find_or_create_by(followed_user_id: user.id)
+  end
+
+  def unfollow(user)
+    return unless id != user.id
+
+    active_relationships.find_by(followed_user_id: user.id)&.destroy
   end
 
   def favorite(tweet)

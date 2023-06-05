@@ -6,14 +6,30 @@
       .card.border-top-bottom
         .card-body
           .row.g-0
-            .col-md-auto.d-flex.align-items-center
-              - if @tweet.user.image.attached?
-                = link_to user_path(@tweet.user) do
-                  = image_tag @tweet.user.image.variant(resize_to_fit: [60, 60])
-              - else
-                = link_to user_path(@tweet.user) do
-                  = image_tag 'no_image.png', size: '60x60'
-              h3 = @tweet.user.user_name
+            .d-flex.justify-content-between
+              div
+                - if @tweet.user.image.attached?
+                  = link_to user_path(@tweet.user) do
+                    = image_tag @tweet.user.image.variant(resize_to_fit: [60, 60])
+                - else
+                  = link_to user_path(@tweet.user) do
+                    = image_tag 'no_image.png', size: '60x60'
+                span.font-size-24 = @tweet.user.user_name
+              div
+                - if current_user.id != @tweet.user.id
+                  .dropdown
+                    button#dropdownMenuButton.dropdown-toggle.border-0.bg-transparent data-bs-toggle="dropdown" aria-expanded="false"
+                      i.bi.bi-three-dots.font-size-24
+                    ul.dropdown-menu aria-labelledby="dropdownMenuButton"
+                      li
+                        - if current_user.followings.exists?(@tweet.user.id)
+                          = link_to user_follow_path(@tweet.user), data: { "turbo-method": :delete }, class: "dropdown-item" do
+                            i.bi.bi-person-dash.font-size-20
+                            = "  #{@tweet.user.user_name}をフォロー解除"
+                        - else
+                          = link_to user_follow_path(@tweet.user), data: { "turbo-method": :post }, class: "dropdown-item" do
+                            i.bi.bi-person-plus.font-size-20
+                            = "  #{@tweet.user.user_name}をフォローする"
             .mt-2
               p = @tweet.tweet
             .mt-2
