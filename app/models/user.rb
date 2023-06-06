@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :retweets, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
   has_many :active_relationships, class_name: 'Follow', foreign_key: 'follower_user_id', dependent: :destroy, inverse_of: :follower_user
   has_many :followings, through: :active_relationships, source: :followed_user
   has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy, inverse_of: :followed_user
@@ -38,7 +39,15 @@ class User < ApplicationRecord
   end
 
   def follow(user)
-    active_relationships.create(followed_user_id: user.id)
+    return unless id != user.id
+
+    active_relationships.find_or_create_by(followed_user_id: user.id)
+  end
+
+  def unfollow(user)
+    return unless id != user.id
+
+    active_relationships.find_by(followed_user_id: user.id)&.destroy
   end
 
   def favorite(tweet)
@@ -59,6 +68,14 @@ class User < ApplicationRecord
 
   def comment(comment, tweet)
     comments.create(comment: comment, tweet: tweet)
+  end
+
+  def bookmark(tweet)
+    bookmarks.find_or_create_by(tweet: tweet)
+  end
+
+  def unbookmark(tweet)
+    bookmarks.find_by(tweet: tweet)&.destroy
   end
 
   def room_with(other_user)

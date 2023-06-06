@@ -1,0 +1,23 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-6.border-sides
+      h3.bold ブックマーク
+      - @bookmarks.each do |bookmark|
+        .card.border-top-bottom
+          .row.g-0
+            .col-md-2.mt-3.d-flex.justify-content-center
+              - if bookmark.tweet.user.image.attached?
+                = link_to user_path(bookmark.tweet.user) do
+                  = image_tag bookmark.tweet.user.image.variant(resize_to_fit: [60, 60])
+              - else
+                = link_to user_path(bookmark.tweet.user) do
+                  = image_tag 'no_image.png', size: '60x60'
+            .col-md-10
+              .card-body
+                = link_to tweet_path(bookmark.tweet), class: 'black-link' do
+                  h5.card-title = bookmark.tweet.user.user_name
+                  p.card-text = bookmark.tweet.tweet
+      .nav.justify-content-center.mt-3
+        = paginate @bookmarks
