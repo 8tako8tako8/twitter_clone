@@ -130,7 +130,7 @@ end
 if Rails.env.production?
   ApplicationRecord.transaction do
     users = []
-    4.times do |i|
+    20.times do |i|
       user = User.new(
         email: "user#{i}@example.com", password: 'password',
         password_confirmation: 'password', user_name: "User#{i}",
