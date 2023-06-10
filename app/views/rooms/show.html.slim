@@ -4,23 +4,7 @@
       = render 'sidebar'
     .col-lg-3
       h3.bold メッセージ
-      - @users.each do |user|
-        .card.border-top-bottom
-          .row.g-0
-            .col-md-2.mt-3.d-flex.justify-content-center
-              div
-                - if user.image.attached?
-                  = link_to user_path(user) do
-                    = image_tag user.image.variant(resize_to_fit: [60, 60])
-                - else
-                  = link_to user_path(user) do
-                    = image_tag 'no_image.png', size: '60x60'
-            .col-md-10
-              = link_to user_room_path(user), class: 'black-link' do
-                .card-body
-                  h5.card-title = user.user_name
-      .nav.justify-content-center.mt-3
-        = paginate @users
+      = render partial: 'room', locals: { users: @users }
     .col-lg-4.border-sides
       h4 = @user.user_name
       .border-top-bottom
