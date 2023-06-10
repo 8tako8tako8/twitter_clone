@@ -78,7 +78,7 @@ class User < ApplicationRecord
     bookmarks.find_by(tweet: tweet)&.destroy
   end
 
-  def create_room(user)
+  def room(user)
     common_room = common_room(user)
     
     if common_room
@@ -91,13 +91,14 @@ class User < ApplicationRecord
     end
   end
 
+  def common_room(user)
+    (rooms & user.rooms).first
+  end
+
   private
   
   def github_provider?
     provider == 'github'
   end
 
-  def common_room(user)
-    (self.rooms & user.rooms).first
-  end
 end

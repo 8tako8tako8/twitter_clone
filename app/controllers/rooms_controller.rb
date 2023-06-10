@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
 
   def create
     user = User.find(params[:user_id])
-    current_user.create_room(user)
+    current_user.room(user)
     redirect_to user_room_path(user)
   end
 
