@@ -12,7 +12,7 @@ ul
     = link_to bookmarks_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
       i.bi.bi-bookmark.margin-right-1
       span ブックマーク
-    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+    = link_to rooms_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
       i.bi.bi-envelope.margin-right-1
       span メッセージ
     = link_to user_path(current_user), class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
