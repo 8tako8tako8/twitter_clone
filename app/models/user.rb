@@ -80,15 +80,13 @@ class User < ApplicationRecord
 
   def room(user)
     common_room = common_room(user)
-    
-    if common_room
-      return common_room
-    else
-      room = Room.create
-      room.entries.create(user_id: self.id)
-      room.entries.create(user_id: user.id)
-      return room
-    end
+
+    return common_room if common_room
+
+    room = Room.create
+    room.entries.create(user_id: id)
+    room.entries.create(user_id: user.id)
+    room
   end
 
   def common_room(user)
@@ -96,9 +94,8 @@ class User < ApplicationRecord
   end
 
   private
-  
+
   def github_provider?
     provider == 'github'
   end
-
 end

@@ -6,9 +6,9 @@ class MessagesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @room = current_user.common_room(@user)
-    @message = @room.messages.build(message_params)
-    @message.user_id = current_user.id
-    if @message.save
+    @message = @room.message(current_user, message_params)
+
+    if @message.persisted?
       redirect_to user_room_path(@user)
     else
       @users = User.joins(:entries).where(entries: { room: current_user.rooms }).where.not(id: current_user.id).page(params[:page]).per(10)

@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.joins(:entries).where(entries: { room: current_user.rooms }).where.not(id: current_user.id).page(params[:page]).per(10)
+    @users = search_users
   end
 
   def create
@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @users = User.joins(:entries).where(entries: { room: current_user.rooms }).where.not(id: current_user.id).page(params[:page]).per(10)
+    @users = search_users
     @user = User.find(params[:user_id])
     @room = current_user.common_room(@user)
     @message = Message.new
@@ -24,5 +24,9 @@ class RoomsController < ApplicationController
 
   def entry_params
     params.require(:entry).permit(:user_id, :room_id)
+  end
+
+  def search_users
+    User.joins(:entries).where(entries: { room: current_user.rooms }).where.not(id: current_user.id).order(created_at: :asc).page(params[:page]).per(10)
   end
 end
