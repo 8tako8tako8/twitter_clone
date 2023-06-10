@@ -1,9 +1,9 @@
 class ChangeMessageLengthInMessages < ActiveRecord::Migration[7.0]
   def up
-    change_column :tweets, :tweet, :string, limit: 140
+    change_column :messages, :message, :string, limit: 100
   end
 
   def down
-    change_column :tweets, :tweet, :string, limit: nil
+    change_column :messages, :message, :string, limit: nil
   end
 end

@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_184420) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.text "message", null: false
+    t.string "message", limit: 100, null: false
     t.bigint "user_id", null: false
     t.bigint "room_id", null: false
     t.datetime "created_at", null: false
