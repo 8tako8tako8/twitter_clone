@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :retweets, only: [:index]
     resources :comments, only: [:index]
     resource :follow, only: %i[create destroy]
+    resource :room, only: %i[create show]
+    resources :messages, only: [:create]
   end
   resource :user, only: %i[edit update], as: 'profile'
   resources :tweets, only: [:create]
@@ -22,4 +24,5 @@ Rails.application.routes.draw do
     resource :retweet, only: %i[create destroy]
   end
   resources :bookmarks, only: [:index]
+  resources :rooms, only: [:index]
 end

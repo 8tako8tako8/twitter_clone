@@ -16,6 +16,10 @@
         - if current_user.id == @user.id
           .col-md-auto
             = link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-light'
+        - else
+          .col-md-auto
+            = link_to user_room_path(@user), data: { "turbo-method": :post }, class: "black-link" do
+              i.bi.bi-chat-dots.font-size-20.margin-right-1
     - if @user.introduction.present?
       .mt-2
         = @user.introduction

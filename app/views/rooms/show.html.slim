@@ -1,0 +1,28 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-3
+      h3.bold メッセージ
+      = render partial: 'room', locals: { users: @users }
+    .col-lg-4.border-sides
+      h4 = @user.user_name
+      .border-top-bottom
+        - @room.messages.order(created_at: :asc).each do |message|
+          .messages.mt-2
+            - if message.user_id == current_user.id
+              .message.mt-2.mb-2.text-end
+                .message-content.bg-primary.text-white.p-2.rounded
+                  = message.message
+            - else
+              .message.mt-2.mb-2
+                .message-content.bg-secondary.text-white.p-2.rounded
+                  = message.message
+      = render "error_messages", resource: @message
+      .mt-2.border-top-bottom
+        = form_with(model: @message, url: user_messages_path(@user)) do |f|
+          .d-flex.justify-content-between.mt-1
+            .form-group
+              = f.text_area :message, class: 'form-control textarea-message', placeholder: '新しいメッセージを作成'
+            .form-group
+              = f.submit '送信', class: 'btn btn-secondary rounded-pill'

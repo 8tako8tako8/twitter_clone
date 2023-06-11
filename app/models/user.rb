@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed_user
   has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_user_id', dependent: :destroy, inverse_of: :followed_user
   has_many :followers, through: :passive_relationships, source: :follower_user
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
   has_one_attached :image
   has_one_attached :header_image
 
@@ -73,6 +76,21 @@ class User < ApplicationRecord
 
   def unbookmark(tweet)
     bookmarks.find_by(tweet: tweet)&.destroy
+  end
+
+  def room(user)
+    common_room = common_room(user)
+
+    return common_room if common_room
+
+    room = Room.create
+    room.entries.create(user_id: id)
+    room.entries.create(user_id: user.id)
+    room
+  end
+
+  def common_room(user)
+    (rooms & user.rooms).first
   end
 
   private

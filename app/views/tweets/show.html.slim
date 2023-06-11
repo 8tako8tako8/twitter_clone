@@ -61,7 +61,7 @@
               - else
                 = link_to tweet_favorite_path(@tweet), data: { "turbo-method": :post }, class: "black-link" do
                   .d-flex.align-items-center
-                      i.bi.bi-heart.font-size-20.margin-right-1
+                    i.bi.bi-heart.font-size-20.margin-right-1
             div
               - if current_user.bookmarks.exists?(tweet_id: @tweet.id)
                 = link_to tweet_bookmark_path(@tweet), data: { "turbo-method": :delete }, class: "black-link" do

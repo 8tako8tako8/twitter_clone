@@ -1,0 +1,9 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-3
+      h3.bold メッセージ
+      = render partial: 'room', locals: { users: @users }
+    .col-lg-4.border-sides
+      h4 ----

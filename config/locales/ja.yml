@@ -4,6 +4,7 @@ ja:
       user: "ユーザー"
       tweet: "ツイート"
       comment: "コメント"
+      message: "メッセージ"
     attributes:
       user:
         user_name: "ユーザー名"
@@ -16,3 +17,5 @@ ja:
         tweet: "ツイート"
       comment:
         comment: "コメント"
+      message:
+        message: "メッセージ"

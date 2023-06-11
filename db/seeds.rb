@@ -3,7 +3,7 @@
 if Rails.env.development?
   ApplicationRecord.transaction do
     users = []
-    4.times do |i|
+    20.times do |i|
       user = User.new(
         email: "user#{i}@example.com", password: 'password',
         password_confirmation: 'password', user_name: "User#{i}",
@@ -114,6 +114,15 @@ if Rails.env.development?
     user3_tweets.each do |tweet|
       users[3].comment('いいですね！', tweet)
       users[3].comment('最高です！', tweet)
+    end
+
+    # ユーザー0へダイレクトメッセージ
+    users[1..].each do |user|
+      room = users[0].room(user)
+      room.message(user, { message: 'こんにちは' })
+      5.times do |_i|
+        room.message(users[1], { message: '久しぶり！！！元気にしてる？？？' })
+      end
     end
   end
 end
@@ -121,7 +130,7 @@ end
 if Rails.env.production?
   ApplicationRecord.transaction do
     users = []
-    4.times do |i|
+    20.times do |i|
       user = User.new(
         email: "user#{i}@example.com", password: 'password',
         password_confirmation: 'password', user_name: "User#{i}",
@@ -232,6 +241,15 @@ if Rails.env.production?
     user3_tweets.each do |tweet|
       users[3].comment('いいですね！', tweet)
       users[3].comment('最高です！', tweet)
+    end
+
+    # ユーザー0へダイレクトメッセージ
+    users[1..].each do |user|
+      room = users[0].room(user)
+      room.message(user, { message: 'こんにちは' })
+      5.times do |_i|
+        room.message(users[1], { message: '久しぶり！！！元気にしてる？？？' })
+      end
     end
   end
 end
