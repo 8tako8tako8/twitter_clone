@@ -11,12 +11,12 @@
         - @room.messages.order(created_at: :asc).each do |message|
           .messages.mt-2
             - if message.user_id == current_user.id
-              .message.mt-2.mb-2
-                .message-content.bg-secondary.text-white.p-2.rounded
-                  = message.message
-            - else
               .message.mt-2.mb-2.text-end
                 .message-content.bg-primary.text-white.p-2.rounded
+                  = message.message
+            - else
+              .message.mt-2.mb-2
+                .message-content.bg-secondary.text-white.p-2.rounded
                   = message.message
       = render "error_messages", resource: @message
       .mt-2.border-top-bottom
