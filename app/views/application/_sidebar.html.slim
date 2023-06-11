@@ -3,10 +3,7 @@ ul
     = link_to root_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
       i.bi.bi-house-door.margin-right-1
       span ホーム
-    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
-      i.bi.bi-hash.margin-right-1
-      span 話題を検索
-    a.list-group-item.list-group-item-action.fs-4.mb-3.border-none
+    = link_to notifications_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
       i.bi.bi-bell.margin-right-1
       span 通知
     = link_to bookmarks_path, class: "list-group-item list-group-item-action fs-4 mb-3 border-none"
