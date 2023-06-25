@@ -7,6 +7,8 @@ class Retweet < ApplicationRecord
   belongs_to :user
   has_one :notification, as: :subject, dependent: :destroy
 
+  validates :tweet, presence: true, uniqueness: { scope: :user }
+
   private
 
   def create_notification

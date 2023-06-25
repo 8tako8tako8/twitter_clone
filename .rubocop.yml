@@ -21,3 +21,9 @@ Metrics/BlockLength:
 Hc/RailsSpecificActionName:
   Exclude:
     - "app/controllers/users/*"
+RSpec/ContextWording:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleLength:
+  Max: 15

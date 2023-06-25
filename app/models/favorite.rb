@@ -7,6 +7,8 @@ class Favorite < ApplicationRecord
   belongs_to :user
   has_one :notification, as: :subject, dependent: :destroy
 
+  validates :tweet, presence: true, uniqueness: { scope: :user }
+
   def create_notification
     Notification.create(subject: self, user: tweet.user, action_type: Notification.action_types[:favorite])
   end
