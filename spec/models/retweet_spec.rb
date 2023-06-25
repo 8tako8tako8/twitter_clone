@@ -27,7 +27,7 @@ RSpec.describe Retweet, type: :model do
       FactoryBot.create(:retweet, user: user, tweet: tweet)
 
       notification = Notification.last
-      retweet = Retweet.last
+      retweet = described_class.last
 
       expect(notification.subject).to eq(retweet)
       expect(notification.user).to eq(tweet.user)

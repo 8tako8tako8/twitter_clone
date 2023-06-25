@@ -28,7 +28,7 @@ RSpec.describe Comment, type: :model do
       FactoryBot.create(:comment, user: user, tweet: tweet)
 
       notification = Notification.last
-      comment = Comment.last
+      comment = described_class.last
 
       expect(notification.subject).to eq(comment)
       expect(notification.user).to eq(tweet.user)

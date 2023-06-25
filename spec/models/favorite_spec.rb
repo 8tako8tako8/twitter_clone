@@ -27,7 +27,7 @@ RSpec.describe Favorite, type: :model do
       FactoryBot.create(:favorite, user: user, tweet: tweet)
 
       notification = Notification.last
-      favorite = Favorite.last
+      favorite = described_class.last
 
       expect(notification.subject).to eq(favorite)
       expect(notification.user).to eq(tweet.user)
@@ -35,4 +35,3 @@ RSpec.describe Favorite, type: :model do
     end
   end
 end
-
