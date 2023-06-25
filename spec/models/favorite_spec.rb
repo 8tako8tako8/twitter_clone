@@ -18,4 +18,21 @@ RSpec.describe Favorite, type: :model do
       expect(duplicate_favorite).not_to be_valid
     end
   end
+
+  describe '通知' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:tweet) { FactoryBot.create(:tweet) }
+
+    it 'お気に入りが作成された時に通知が作成されること' do
+      FactoryBot.create(:favorite, user: user, tweet: tweet)
+
+      notification = Notification.last
+      favorite = Favorite.last
+
+      expect(notification.subject).to eq(favorite)
+      expect(notification.user).to eq(tweet.user)
+      expect(notification.action_type).to eq('favorite')
+    end
+  end
 end
+

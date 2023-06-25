@@ -18,4 +18,20 @@ RSpec.describe Retweet, type: :model do
       expect(duplicate_retweet).not_to be_valid
     end
   end
+
+  describe '通知' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:tweet) { FactoryBot.create(:tweet) }
+
+    it 'リツイートが作成された時に通知が作成されること' do
+      FactoryBot.create(:retweet, user: user, tweet: tweet)
+
+      notification = Notification.last
+      retweet = Retweet.last
+
+      expect(notification.subject).to eq(retweet)
+      expect(notification.user).to eq(tweet.user)
+      expect(notification.action_type).to eq('retweet')
+    end
+  end
 end
