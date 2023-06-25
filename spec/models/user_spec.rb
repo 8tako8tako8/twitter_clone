@@ -83,7 +83,7 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryBot.create(:user) }
     let(:tweet) { FactoryBot.create(:tweet) }
 
-    it 'お気に入りが正しくされること' do
+    it 'いいねが正しくされること' do
       user.favorite(tweet)
       expect(user.favorites.map(&:tweet)).to include(tweet)
     end
@@ -93,7 +93,7 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryBot.create(:user) }
     let(:tweet) { FactoryBot.create(:tweet) }
 
-    it 'お気に入り解除が正しくされること' do
+    it 'いいね解除が正しくされること' do
       user.favorite(tweet)
       user.unfavorite(tweet)
       expect(user.favorites.map(&:tweet)).not_to include(tweet)

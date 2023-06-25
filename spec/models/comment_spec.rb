@@ -24,7 +24,7 @@ RSpec.describe Comment, type: :model do
     let(:user) { FactoryBot.create(:user) }
     let(:tweet) { FactoryBot.create(:tweet) }
 
-    it 'お気に入りが作成された時に通知が作成されること' do
+    it 'コメントが作成された時に通知が作成されること' do
       FactoryBot.create(:comment, user: user, tweet: tweet)
 
       notification = Notification.last

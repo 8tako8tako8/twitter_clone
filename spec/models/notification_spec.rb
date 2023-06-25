@@ -16,8 +16,8 @@ RSpec.describe Notification, type: :model do
       end
     end
 
-    context 'お気に入りの場合' do
-      it 'お気に入り通知メールが送信されること' do
+    context 'いいねの場合' do
+      it 'いいね通知メールが送信されること' do
         favorite = FactoryBot.create(:favorite, user: user)
 
         mail = ActionMailer::Base.deliveries.last

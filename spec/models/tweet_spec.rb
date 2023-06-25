@@ -25,7 +25,7 @@ RSpec.describe Tweet, type: :model do
     let!(:user2) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet, user: user1) }
 
-    it 'ツイートのお気に入り数2が返ってくること' do
+    it 'ツイートのいいね数2が返ってくること' do
       FactoryBot.create(:favorite, user: user1, tweet: tweet)
       FactoryBot.create(:favorite, user: user2, tweet: tweet)
       expect(tweet.count_favorites).to eq(2)
