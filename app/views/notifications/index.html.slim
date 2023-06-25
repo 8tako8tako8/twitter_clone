@@ -1,0 +1,24 @@
+.container.mt-4.mb-4
+  .row
+    .col-lg-3
+      = render 'sidebar'
+    .col-lg-6.border-sides
+      h3.bold 通知
+      - @notifications.each do |notification|
+        .card.border-top-bottom
+          .card-body
+            - if notification.subject.user.image.attached?
+              = link_to user_path(notification.subject.user) do
+                = image_tag notification.subject.user.image.variant(resize_to_fit: [40, 40])
+            - else
+              = link_to user_path(notification.subject.user) do
+                = image_tag 'no_image.png', size: '40x40'
+            - if notification.comment?
+              p = "#{notification.subject.user.user_name}さんがあなたのツイートにコメントしました"
+            - elsif notification.favorite?
+              p = "#{notification.subject.user.user_name}さんがあなたのツイートをいいねしました"
+            - elsif notification.retweet?
+              p = "#{notification.subject.user.user_name}さんがあなたのツイートをリツイートしました"
+            p.notification-tweet = notification.subject.tweet.tweet
+      .nav.justify-content-center.mt-3
+        = paginate @notifications
