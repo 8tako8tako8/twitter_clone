@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Messages", type: :system do
+RSpec.describe 'Messages', type: :system do
   before do
     driven_by(:rack_test)
   end
@@ -20,7 +22,7 @@ RSpec.describe "Messages", type: :system do
     find('#room-link').click
 
     expect(page).to have_content 'メッセージ'
-    expect(page).to have_content "#{user2.user_name}"
+    expect(page).to have_content user2.user_name.to_s
 
     fill_in 'message[message]', with: 'テストメッセージ'
     click_button '送信'

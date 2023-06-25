@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Favorites", type: :system do
+RSpec.describe 'Favorites', type: :system do
   before do
     driven_by(:rack_test)
   end
 
   it 'ユーザーがいいねする' do
     user = FactoryBot.create(:user)
-    tweet = FactoryBot.create(:tweet, tweet: 'いいね用')
+    FactoryBot.create(:tweet, tweet: 'いいね用')
 
     visit root_path
     click_link 'ログイン'
@@ -28,7 +30,7 @@ RSpec.describe "Favorites", type: :system do
     user = FactoryBot.create(:user)
     tweet = FactoryBot.create(:tweet, tweet: 'いいね用')
     user.favorite(tweet)
-    
+
     visit root_path
     click_link 'ログイン'
     fill_in 'user[email]', with: user.email

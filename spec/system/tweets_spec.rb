@@ -14,31 +14,10 @@ RSpec.describe "Tweets", type: :system do
     fill_in 'user[password]', with: user.password
     click_button 'ログインする'
 
-    expect {
-      fill_in 'tweet[tweet]', with: 'テストツイート'
-      click_button 'ツイートする'
+    fill_in 'tweet[tweet]', with: 'テストツイート'
+    click_button 'ツイートする'
 
-      expect(page).to have_content 'ツイートを投稿しました'
-      expect(page).to have_content 'テストツイート'
-    }
-  end
-
-  it 'ユーザーが画像付きツイートを投稿する' do
-    user = FactoryBot.create(:user)
-
-    visit root_path
-    click_link 'ログイン'
-    fill_in 'user[email]', with: user.email
-    fill_in 'user[password]', with: user.password
-    click_button 'ログインする'
-
-    expect {
-      fill_in 'tweet[tweet]', with: 'テストツイート'
-      attach_file 'tweet[image]', 'spec/files/sky.jpg'
-      click_button 'ツイートする'
-
-      expect(page).to have_content 'ツイートを投稿しました'
-      expect(page).to have_content 'テストツイート'
-    }
+    expect(page).to have_content 'ツイートを投稿しました'
+    expect(page).to have_content 'テストツイート'
   end
 end

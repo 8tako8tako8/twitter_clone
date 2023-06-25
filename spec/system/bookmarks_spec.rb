@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Bookmarks", type: :system do
+RSpec.describe 'Bookmarks', type: :system do
   before do
     driven_by(:rack_test)
   end
 
   it 'ユーザーがブックマークする' do
     user = FactoryBot.create(:user)
-    tweet = FactoryBot.create(:tweet, tweet: 'ブックマーク用')
+    FactoryBot.create(:tweet, tweet: 'ブックマーク用')
 
     visit root_path
     click_link 'ログイン'

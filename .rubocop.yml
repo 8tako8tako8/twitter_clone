@@ -27,3 +27,5 @@ RSpec/MultipleExpectations:
   Enabled: false
 RSpec/ExampleLength:
   Max: 15
+  Exclude:
+    - "spec/system/*"
