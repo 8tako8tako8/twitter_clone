@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Tweet, type: :model do
@@ -11,7 +13,7 @@ RSpec.describe Tweet, type: :model do
       tweet = FactoryBot.build(:tweet, tweet: nil)
       expect(tweet).not_to be_valid
     end
-    
+
     it 'ツイートが文字数が140字を超えた場合にエラーとなること' do
       tweet = FactoryBot.build(:tweet, tweet: 'a' * 141)
       expect(tweet).not_to be_valid
@@ -21,7 +23,6 @@ RSpec.describe Tweet, type: :model do
   describe '#count_favorites' do
     let!(:user1) { FactoryBot.create(:user) }
     let!(:user2) { FactoryBot.create(:user) }
-    let!(:user3) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet, user: user1) }
 
     it 'ツイートのお気に入り数2が返ってくること' do
@@ -34,7 +35,6 @@ RSpec.describe Tweet, type: :model do
   describe '#count_retweets' do
     let!(:user1) { FactoryBot.create(:user) }
     let!(:user2) { FactoryBot.create(:user) }
-    let!(:user3) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet, user: user1) }
 
     it 'ツイートのリツイート数2が返ってくること' do

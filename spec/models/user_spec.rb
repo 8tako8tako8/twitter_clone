@@ -163,6 +163,7 @@ RSpec.describe User, type: :model do
 
     context '共通のルームが存在した場合' do
       let!(:room) { Room.create }
+
       before do
         room.entries.create(user_id: user1.id)
         room.entries.create(user_id: user2.id)
@@ -186,6 +187,7 @@ RSpec.describe User, type: :model do
 
     context '共通のルームが存在した場合' do
       let!(:room) { Room.create }
+
       before do
         room.entries.create(user_id: user1.id)
         room.entries.create(user_id: user2.id)
