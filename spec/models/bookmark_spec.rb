@@ -6,9 +6,9 @@ RSpec.describe Bookmark, type: :model do
   describe 'バリデーション' do
     let!(:user) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet) }
+    let!(:bookmark) { FactoryBot.create(:bookmark) }
 
     it 'ブックマークが正しく作成されること' do
-      bookmark = FactoryBot.build(:bookmark)
       expect(bookmark).to be_valid
     end
 

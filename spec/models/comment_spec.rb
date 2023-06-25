@@ -21,18 +21,23 @@ RSpec.describe Comment, type: :model do
   end
 
   describe '通知' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:tweet) { FactoryBot.create(:tweet) }
+    context 'お気に入りが作成された時' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:tweet) { FactoryBot.create(:tweet) }
+      let(:comment) { FactoryBot.create(:comment, user: user, tweet: tweet) }
+      let(:notification) { Notification.where(subject: comment).last }
 
-    it 'コメントが作成された時に通知が作成されること' do
-      FactoryBot.create(:comment, user: user, tweet: tweet)
+      it 'subjectがcommentであること' do
+        expect(notification.subject).to eq(comment)
+      end
 
-      notification = Notification.last
-      comment = described_class.last
+      it 'userはtweetしたユーザーであること' do
+        expect(notification.user).to eq(tweet.user)
+      end
 
-      expect(notification.subject).to eq(comment)
-      expect(notification.user).to eq(tweet.user)
-      expect(notification.action_type).to eq('comment')
+      it 'action_typeがcommentであること' do
+        expect(notification.action_type).to eq('comment')
+      end
     end
   end
 end
