@@ -8,7 +8,8 @@ RSpec.describe Bookmark, type: :model do
     let!(:tweet) { FactoryBot.create(:tweet) }
 
     it 'ブックマークが正しく作成されること' do
-      bookmark = FactoryBot.build(:bookmark)
+      let!(:bookmark) { FactoryBot.create(:bookmark) }
+
       expect(bookmark).to be_valid
     end
 
