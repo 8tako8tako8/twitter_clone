@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   end
   resources :bookmarks, only: [:index]
   resources :rooms, only: [:index]
+  resources :notifications, only: [:index]
 end
