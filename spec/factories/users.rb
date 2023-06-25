@@ -11,5 +11,9 @@ FactoryBot.define do
     website_url { 'https://test.example.com' }
     uid { SecureRandom.uuid }
     confirmed_at { Time.zone.now }
+
+    trait :github do
+      provider { 'github' }
+    end
   end
 end
