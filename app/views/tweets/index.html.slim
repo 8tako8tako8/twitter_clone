@@ -47,10 +47,10 @@
               .col-md-2.mt-3.d-flex.justify-content-center
                 div
                   - if tweet.user.image.attached?
-                    = link_to user_path(tweet.user), id: "profile-link-#{tweet.user.id}" do
+                    = link_to user_path(tweet.user), data: { "testid": "profile-link-#{tweet.user.id}" } do
                       = image_tag tweet.user.image.variant(resize_to_fit: [60, 60])
                   - else
-                    = link_to user_path(tweet.user), id: "profile-link-#{tweet.user.id}" do
+                    = link_to user_path(tweet.user), data: { "testid": "profile-link-#{tweet.user.id}" } do
                       = image_tag 'no_image.png', size: '60x60'
               .col-md-10
                 = link_to tweet_path(tweet), class: 'black-link' do

@@ -18,8 +18,8 @@ RSpec.describe 'Messages', type: :system do
     fill_in 'user[password]', with: user1.password
     click_button 'ログインする'
 
-    find("#profile-link-#{user2.id}").click
-    find('#room-link').click
+    find("[data-testid='profile-link-#{user2.id}']").click
+    find('[data-testid="room-link"]').click
 
     expect(page).to have_content 'メッセージ'
     expect(page).to have_content user2.user_name.to_s

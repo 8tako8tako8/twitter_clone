@@ -21,7 +21,7 @@ RSpec.describe 'Retweets', type: :system do
 
     expect(page).not_to have_css('.bi.bi-recycle.text-success')
 
-    find('#retweet-link').click
+    find('[data-testid="retweet-link"]').click
 
     expect(page).to have_css('.bi.bi-recycle.text-success')
   end
@@ -41,7 +41,7 @@ RSpec.describe 'Retweets', type: :system do
 
     expect(page).to have_css('.bi.bi-recycle.text-success')
 
-    find('#retweet-link').click
+    find('[data-testid="retweet-link"]').click
 
     expect(page).not_to have_css('.bi.bi-recycle.text-success')
   end

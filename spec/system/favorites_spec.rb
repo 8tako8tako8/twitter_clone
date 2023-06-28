@@ -21,7 +21,7 @@ RSpec.describe 'Favorites', type: :system do
 
     expect(page).not_to have_css('.bi.bi-heart-fill.text-danger')
 
-    find('#favorite-link').click
+    find('[data-testid="favorite-link"]').click
 
     expect(page).to have_css('.bi.bi-heart-fill.text-danger')
   end
@@ -41,7 +41,7 @@ RSpec.describe 'Favorites', type: :system do
 
     expect(page).to have_css('.bi.bi-heart-fill.text-danger')
 
-    find('#favorite-link').click
+    find('[data-testid="favorite-link"]').click
 
     expect(page).not_to have_css('.bi.bi-heart-fill.text-danger')
   end

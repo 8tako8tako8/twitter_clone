@@ -21,7 +21,7 @@ RSpec.describe 'Bookmarks', type: :system do
 
     expect(page).not_to have_css('.bi.bi-bookmark.text-primary')
 
-    find('#bookmark-link').click
+    find('[data-testid="bookmark-link"]').click
 
     expect(page).to have_css('.bi.bi-bookmark.text-primary')
   end
@@ -41,7 +41,7 @@ RSpec.describe 'Bookmarks', type: :system do
 
     expect(page).to have_css('.bi.bi-bookmark.text-primary')
 
-    find('#bookmark-link').click
+    find('[data-testid="bookmark-link"]').click
 
     expect(page).not_to have_css('.bi.bi-bookmark.text-primary')
   end
