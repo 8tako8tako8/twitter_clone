@@ -19,11 +19,11 @@ RSpec.describe 'Favorites', type: :system do
 
     click_link 'いいね用'
 
-    expect(page).not_to have_css('.bi.bi-heart-fill.text-danger')
+    expect(page).to have_css('[data-testid="favorite-link"]')
 
     find('[data-testid="favorite-link"]').click
 
-    expect(page).to have_css('.bi.bi-heart-fill.text-danger')
+    expect(page).to have_css('[data-testid="unfavorite-link"]')
   end
 
   it 'ユーザーがいいね解除する' do
@@ -39,10 +39,10 @@ RSpec.describe 'Favorites', type: :system do
 
     click_link 'いいね用'
 
-    expect(page).to have_css('.bi.bi-heart-fill.text-danger')
+    expect(page).to have_css('[data-testid="unfavorite-link"]')
 
-    find('[data-testid="favorite-link"]').click
+    find('[data-testid="unfavorite-link"]').click
 
-    expect(page).not_to have_css('.bi.bi-heart-fill.text-danger')
+    expect(page).to have_css('[data-testid="favorite-link"]')
   end
 end

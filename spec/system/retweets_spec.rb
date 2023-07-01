@@ -19,11 +19,11 @@ RSpec.describe 'Retweets', type: :system do
 
     click_link 'リツイート用'
 
-    expect(page).not_to have_css('.bi.bi-recycle.text-success')
+    expect(page).to have_css('[data-testid="retweet-link"]')
 
     find('[data-testid="retweet-link"]').click
 
-    expect(page).to have_css('.bi.bi-recycle.text-success')
+    expect(page).to have_css('[data-testid="unretweet-link"]')
   end
 
   it 'ユーザーがリツイート解除する' do
@@ -39,10 +39,10 @@ RSpec.describe 'Retweets', type: :system do
 
     click_link 'リツイート用'
 
-    expect(page).to have_css('.bi.bi-recycle.text-success')
+    expect(page).to have_css('[data-testid="unretweet-link"]')
 
-    find('[data-testid="retweet-link"]').click
+    find('[data-testid="unretweet-link"]').click
 
-    expect(page).not_to have_css('.bi.bi-recycle.text-success')
+    expect(page).to have_css('[data-testid="retweet-link"]')
   end
 end

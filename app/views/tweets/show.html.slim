@@ -46,7 +46,7 @@
           .d-flex.justify-content-around
             div
               - if current_user.retweets.exists?(tweet_id: @tweet.id)
-                = link_to tweet_retweet_path(@tweet), data: { "turbo-method": :delete, "testid": "retweet-link" }, class: "black-link" do
+                = link_to tweet_retweet_path(@tweet), data: { "turbo-method": :delete, "testid": "unretweet-link" }, class: "black-link" do
                   .d-flex.align-items-center
                     i.bi.bi-recycle.text-success.font-size-20.margin-right-1
               - else
@@ -55,7 +55,7 @@
                     i.bi.bi-recycle.font-size-20.margin-right-1
             div
               - if current_user.favorites.exists?(tweet_id: @tweet.id)
-                = link_to tweet_favorite_path(@tweet), data: { "turbo-method": :delete, "testid": "favorite-link" }, class: "black-link" do
+                = link_to tweet_favorite_path(@tweet), data: { "turbo-method": :delete, "testid": "unfavorite-link" }, class: "black-link" do
                   .d-flex.align-items-center
                     i.bi.bi-heart-fill.text-danger.font-size-20.margin-right-1
               - else
@@ -64,7 +64,7 @@
                     i.bi.bi-heart.font-size-20.margin-right-1
             div
               - if current_user.bookmarks.exists?(tweet_id: @tweet.id)
-                = link_to tweet_bookmark_path(@tweet), data: { "turbo-method": :delete, "testid": "bookmark-link" }, class: "black-link" do
+                = link_to tweet_bookmark_path(@tweet), data: { "turbo-method": :delete, "testid": "unbookmark-link" }, class: "black-link" do
                   .d-flex.align-items-center
                     i.bi.bi-bookmark.text-primary.font-size-20.margin-right-1
               - else

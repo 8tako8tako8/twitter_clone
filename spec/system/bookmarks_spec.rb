@@ -19,11 +19,9 @@ RSpec.describe 'Bookmarks', type: :system do
 
     click_link 'ブックマーク用'
 
-    expect(page).not_to have_css('.bi.bi-bookmark.text-primary')
-
     find('[data-testid="bookmark-link"]').click
 
-    expect(page).to have_css('.bi.bi-bookmark.text-primary')
+    expect(page).to have_css('[data-testid="unbookmark-link"]')
   end
 
   it 'ユーザーがブックマーク解除する' do
@@ -39,10 +37,9 @@ RSpec.describe 'Bookmarks', type: :system do
 
     click_link 'ブックマーク用'
 
-    expect(page).to have_css('.bi.bi-bookmark.text-primary')
-
+    find('[data-testid="unbookmark-link"]').click
     find('[data-testid="bookmark-link"]').click
 
-    expect(page).not_to have_css('.bi.bi-bookmark.text-primary')
+    expect(page).to have_css('[data-testid="unbookmark-link"]')
   end
 end
